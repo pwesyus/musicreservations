@@ -115,11 +115,45 @@ public class mrdashboard implements designs {
             }
         });
 
+		mrddashboardbtn.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+            	musicRoomDashboard.setVisible(false);
+                mrdashboard dash = new mrdashboard();
+        		dash.dashboard();
+
+            }
+        });
+
 		mrdreservationbtn.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
             	musicRoomDashboard.setVisible(false);
                 mrreservationtbl reserve = new mrreservationtbl();
         		reserve.reservations();
+
+            }
+        });
+        mrdroomsbtn.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+            	musicRoomDashboard.setVisible(false);
+                mrroom room = new mrroom();
+        		room.rooms();
+
+            }
+        });
+
+        mrdequipmentsbtn.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+            	musicRoomDashboard.setVisible(false);
+                mrequipmenttbl equipment = new mrequipmenttbl();
+        		equipment.equipments();
+
+            }
+        });
+        mrdsettingsbtn.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+            	musicRoomDashboard.setVisible(false);
+                mrsettings setting = new mrsettings();
+        		setting.settings();
 
             }
         });

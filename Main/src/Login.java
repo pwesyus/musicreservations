@@ -129,6 +129,7 @@ public class Login implements designs {
 	                String dbAccess = resultSet.getString("access");
 
 	                if ("admin".equals(dbAccess)) {
+	                	JOptionPane.showMessageDialog(null, "WELCOME TO MUSIC ROOM RESERVATION", "Login successfully!", JOptionPane.INFORMATION_MESSAGE);
 	                	mrdashboard dash = new mrdashboard();
         				dash.dashboard();
 	                    login.setVisible(false);

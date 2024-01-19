@@ -161,16 +161,57 @@ public class mrreservationtbl implements designs {
 			    }
 			});
 
+        logoutbtn.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+            	reservation.setVisible(false);
+                Login loginf = new Login();
+        		loginf.logins();
 
+            }
+        });
 
-	       dashboardbtn.addActionListener(new ActionListener() {
-	            public void actionPerformed(ActionEvent e) {
-	            	reservation.setVisible(false);
-	                mrdashboard dash = new mrdashboard();
-	        		dash.dashboard();
+		dashboardbtn.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+            	reservation.setVisible(false);
+                mrdashboard dash = new mrdashboard();
+        		dash.dashboard();
 
-	            }
-	        });
+            }
+        });
+
+		reservationbtn.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+            	reservation.setVisible(false);
+                mrreservationtbl reserve = new mrreservationtbl();
+        		reserve.reservations();
+
+            }
+        });
+        roomsbtn.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+            	reservation.setVisible(false);
+                mrroom room = new mrroom();
+        		room.rooms();
+
+            }
+        });
+
+        equipmentsbtn.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+            	reservation.setVisible(false);
+                mrequipmenttbl equipment = new mrequipmenttbl();
+        		equipment.equipments();
+
+            }
+        });
+        settingsbtn.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+            	reservation.setVisible(false);
+                mrsettings setting = new mrsettings();
+        		setting.settings();
+
+            }
+        });
 
 	        // border of button
 	        add.setBorder(new LineBorder(Color.BLACK, 2));

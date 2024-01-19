@@ -1,8 +1,13 @@
 C:\Users\Admin\Desktop\MusicReservation\Main\src\designs.java
 C:\Users\Admin\Desktop\MusicReservation\Main\src\Login.java
 C:\Users\Admin\Desktop\MusicReservation\Main\src\Main.java
+C:\Users\Admin\Desktop\MusicReservation\Main\src\mraddequipment.java
 C:\Users\Admin\Desktop\MusicReservation\Main\src\mraddreservation.java
 C:\Users\Admin\Desktop\MusicReservation\Main\src\mrdashboard.java
+C:\Users\Admin\Desktop\MusicReservation\Main\src\mreditequipment.java
 C:\Users\Admin\Desktop\MusicReservation\Main\src\mreditreservation.java
+C:\Users\Admin\Desktop\MusicReservation\Main\src\mrequipmenttbl.java
 C:\Users\Admin\Desktop\MusicReservation\Main\src\mrreservationtbl.java
+C:\Users\Admin\Desktop\MusicReservation\Main\src\mrroom.java
+C:\Users\Admin\Desktop\MusicReservation\Main\src\mrsettings.java
 C:\Users\Admin\Desktop\MusicReservation\Main\src\mrviewreservation.java

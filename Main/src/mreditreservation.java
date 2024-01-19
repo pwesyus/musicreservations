@@ -348,6 +348,7 @@ public class mreditreservation implements designs {
         String addonpax = editaddpaxtf.getText();
 
         try {
+
 		   if (fullname.isEmpty() || address.isEmpty() || contactnum.isEmpty() || datereservation.isEmpty() || starttime.isEmpty() || endtime.isEmpty() || addonpax.isEmpty()) {
 		   JOptionPane.showMessageDialog(null, "Please fill in all required fields.");
 		   return;
@@ -366,31 +367,55 @@ public class mreditreservation implements designs {
             int grandtotal = 0;
 
             try {
+
+		            LocalTime start = LocalTime.parse(starttime, DateTimeFormatter.ofPattern("h:mm a"));
+			        LocalTime end = LocalTime.parse(endtime, DateTimeFormatter.ofPattern("h:mm a"));
+
+			        // Calculate duration
+			        Duration duration = Duration.between(start, end);
+			        long hours = duration.toHours();
+			        int totalhours = (int) hours;
+
                     int addpax = Integer.parseInt(editaddpaxtf.getText());
 
 
-                if (roomtype.equalsIgnoreCase("MUSIC ROOM 1") ||
-                        roomtype.equalsIgnoreCase("MUSIC ROOM 2") ||
-                        roomtype.equalsIgnoreCase("MUSIC ROOM 3")) {
-                    roomrate = 650;
-                    pax = 7;
-                    addpaxrate = 99;
-                    totaladdpax = addpaxrate * addpax;
-                    total = roomrate + totaladdpax;
-                } else if (roomtype.equalsIgnoreCase("RECORDING ROOM 1") ||
-                        roomtype.equalsIgnoreCase("RECORDING ROOM 2")) {
-                    roomrate = 1300;
-                    pax = 7;
-                    addpaxrate = 189;
-                    totaladdpax = addpaxrate * addpax;
-                    total = roomrate + totaladdpax;
-                } else {
-                    roomrate = 2600;
-                    pax = 15;
-                    addpaxrate = 369;
-                    totaladdpax = addpaxrate * addpax;
-                    total = roomrate + totaladdpax;
-                }
+		            if (roomtype.equalsIgnoreCase("MUSIC ROOM 1") ||
+		                    roomtype.equalsIgnoreCase("MUSIC ROOM 2") ||
+		                    roomtype.equalsIgnoreCase("MUSIC ROOM 3")) {
+		                   	if (hours < 8){
+								roomrate = 650 * totalhours;
+		                   	}
+		                   	else {
+		                   		roomrate = 5000;
+		                   	}
+		                pax = 7;
+		                addpaxrate = 99;
+		                totaladdpax = addpaxrate * addpax;
+		                total = roomrate + totaladdpax;
+		            } else if (roomtype.equalsIgnoreCase("RECORDING ROOM 1") ||
+		                    roomtype.equalsIgnoreCase("RECORDING ROOM 2")) {
+		                	if (hours < 8){
+								roomrate = 1300 * totalhours;
+		                   	}
+		                   	else {
+		                   		roomrate = 10000;
+		                   	}
+		                pax = 7;
+		                addpaxrate = 189;
+		                totaladdpax = addpaxrate * addpax;
+		                total = roomrate + totaladdpax;
+		            } else {
+		                	if (hours < 8){
+								roomrate = 2600 * totalhours;
+		                   	}
+		                   	else {
+		                   		roomrate = 20000;
+		                   	}
+		                pax = 15;
+		                addpaxrate = 369;
+		                totaladdpax = addpaxrate * addpax;
+		                total = roomrate + totaladdpax;
+		            }
             } catch (NumberFormatException ex) {
                 JOptionPane.showMessageDialog(null, "Invalid value for Pax. Please enter a valid number.");
                 return;

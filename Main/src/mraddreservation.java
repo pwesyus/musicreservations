@@ -315,8 +315,9 @@ public class mraddreservation implements designs {
 		                return;
 		            }
 		            if (!checkForTimeOverlap(datereservation, starttimetf.getText(), endtimetf.getText())) {
-                    reserve.setEnabled(true);
+                    	reserve.setEnabled(true);
                 	}
+
 
 		            int pax = 0;
 		            int roomrate = 0;
@@ -392,7 +393,6 @@ public class mraddreservation implements designs {
 		            totaltf.setText(String.valueOf(total));
 		            grandtotaltf.setText(String.valueOf(grandtotal));
 
-		            reserve.setEnabled(true);
 
 		        } catch (NumberFormatException ex) {
 		            JOptionPane.showMessageDialog(null, "Invalid value for Additional Pax. Please enter a valid number.");
@@ -653,36 +653,61 @@ public class mraddreservation implements designs {
 			headphone.setSelected(false);
 			micstand.setSelected(false);
 	}
-	    private boolean checkForTimeOverlap(String date, String startTime, String endTime) {
-    try {
-        Class.forName("com.mysql.cj.jdbc.Driver");
-        Connection connection = DriverManager.getConnection(url, usernamedb, passworddb);
-        String query = "SELECT * FROM reservation WHERE datereserve = ? AND " +
-                       "((starttime < ? AND endtime > ?) OR " +
-                       "(starttime < ? AND endtime > ?) OR " +
-                       "(starttime >= ? AND endtime <= ?))";
-        try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
-            preparedStatement.setString(1, date);
-            preparedStatement.setString(2, startTime);
-            preparedStatement.setString(3, startTime);
-            preparedStatement.setString(4, startTime);
-            preparedStatement.setString(5, endTime);
-            preparedStatement.setString(6, startTime);
-            preparedStatement.setString(7, endTime);
+private boolean checkForTimeOverlap(String date, String startTime, String endTime) {
+        try {
+            // Convert "mm-dd-yyyy" to "yyyy-MM-dd"
+            SimpleDateFormat inputDateFormat = new SimpleDateFormat("MM/dd/yyyy");
+            SimpleDateFormat outputDateFormat = new SimpleDateFormat("yyyy/MM/dd");
 
-            ResultSet resultSet = preparedStatement.executeQuery();
-            if (resultSet.next()) {
-                // Overlapping reservation found
-                JOptionPane.showMessageDialog(null, "There is an overlapping reservation. Please choose a different time.");
-                return true;
+            java.util.Date formattedDate = inputDateFormat.parse(date);
+            String formattedDateString = outputDateFormat.format(formattedDate);
+
+            // Convert "hh:mm a" to "HH:mm:ss"
+            SimpleDateFormat inputTimeFormat = new SimpleDateFormat("hh:mm a");
+            SimpleDateFormat outputTimeFormat = new SimpleDateFormat("HH:mm:ss");
+
+            java.util.Date startDate = inputTimeFormat.parse(startTime);
+            String formattedStartTime = outputTimeFormat.format(startDate);
+
+            java.util.Date endDate = inputTimeFormat.parse(endTime);
+            String formattedEndTime = outputTimeFormat.format(endDate);
+
+            // Check for time overlap
+            try {
+                Class.forName("com.mysql.cj.jdbc.Driver");
+                Connection connection = DriverManager.getConnection(url, usernamedb, passworddb);
+                String query = "SELECT * FROM reservation WHERE datereserve = ? AND " +
+                               "((starttime < ? AND endtime > ?) OR " +
+                               "(starttime < ? AND endtime > ?) OR " +
+                               "(starttime >= ? AND endtime <= ?))";
+
+                try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+                    preparedStatement.setString(1, formattedDateString);
+                    preparedStatement.setString(2, formattedStartTime);
+                    preparedStatement.setString(3, formattedStartTime);
+                    preparedStatement.setString(4, formattedStartTime);
+                    preparedStatement.setString(5, formattedEndTime);
+                    preparedStatement.setString(6, formattedStartTime);
+                    preparedStatement.setString(7, formattedEndTime);
+
+                    ResultSet resultSet = preparedStatement.executeQuery();
+                    if (resultSet.next()) {
+                        // Overlapping reservation found
+                        JOptionPane.showMessageDialog(null, "There is an overlapping reservation. Please choose a different time.");
+                        return true;
+                    }
+                }
+                connection.close();
+            } catch (Exception ex) {
+                ex.printStackTrace();
+                JOptionPane.showMessageDialog(null, "Error checking for time overlap: " + ex.getMessage());
             }
+        } catch (ParseException e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Error parsing date/time: " + e.getMessage());
         }
-        connection.close();
-    } catch (Exception ex) {
-        ex.printStackTrace();
-        JOptionPane.showMessageDialog(null, "Error checking for time overlap: " + ex.getMessage());
+
+        return false;
     }
-    return false;
-}
 
 }
