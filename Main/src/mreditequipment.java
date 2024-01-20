@@ -289,7 +289,7 @@ public class mreditequipment implements designs {
         imageLabel.setBounds(460, 257, 242, 110);
 		editsaveequip.setBounds(430, 400, 180, 40);
 		editbackequip.setBounds(230, 400, 180, 40);
-        editequipmentf.setBounds(100, 50, 900, 600);
+        editequipmentf.setBounds(225, 70, 900, 600);
 
 
         // bg

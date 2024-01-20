@@ -273,7 +273,7 @@ public class mrsettings implements designs {
 
         settingsFrame.add(settingsSaveBtn);
 		settingsFrame.getContentPane().setBackground(Color.WHITE);
-        settingsFrame.setBounds(100, 50, 900, 600);
+        settingsFrame.setBounds(225, 70, 900, 600);
         settingsFrame.setLayout(null);
         settingsFrame.setVisible(true);
 	}

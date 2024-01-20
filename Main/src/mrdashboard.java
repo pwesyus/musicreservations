@@ -188,7 +188,7 @@ public class mrdashboard implements designs {
         mrdsettingsbtn.setBounds(30, 386, 150, 65);
         mrdlogoutbtn.setBounds(30, 461, 150, 65);
 
-        musicRoomDashboard.setBounds(100, 50, 900, 600);
+        musicRoomDashboard.setBounds(225, 70, 900, 600);
 
         // adding components to the frame
         musicRoomDashboard.add(mrdNoOfOnGoingReservation);

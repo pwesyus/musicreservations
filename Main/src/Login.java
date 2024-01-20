@@ -111,7 +111,7 @@ public class Login implements designs {
         loginbox.setBounds(450, 45, 380, 450);
 
 		login.setLayout(null);
-        login.setBounds(0, 0, 900, 600);
+        login.setBounds(225, 70, 900, 600);
         login.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         login.setVisible(true);
 	}
