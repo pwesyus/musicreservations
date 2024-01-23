@@ -212,6 +212,14 @@ public class mrreservationtbl implements designs {
 
             }
         });
+        forapprovedbtn.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+            	reservation.setVisible(false);
+                mrforapproved approve = new mrforapproved();
+        		approve.forapproved();
+
+            }
+        });
 
 	        // border of button
 	        add.setBorder(new LineBorder(Color.BLACK, 2));
@@ -240,7 +248,7 @@ public class mrreservationtbl implements designs {
 	        logoutbtn.setBounds(30, 461, 150, 65);
 	        reservesp.setBounds(210, 130, 640, 320);
 	        forapprovedbtn.setBounds(670, 475, 180, 50);
-	        reservation.setBounds(100, 50, 900, 600);
+	        reservation.setBounds(225, 70, 900, 600);
 
 	        // add components
 	        reservation.add(titletext);
@@ -267,34 +275,35 @@ public class mrreservationtbl implements designs {
 
 	    }
 
-	    public void refreshreservationtbl(){
-		//database sql
-	        try {
-		    Class.forName("com.mysql.cj.jdbc.Driver");
-		    Connection connection = DriverManager.getConnection(url, usernamedb, passworddb);
-		    Statement statement = connection.createStatement();
+	    public void refreshreservationtbl() {
+    try {
+        Class.forName("com.mysql.cj.jdbc.Driver");
+        Connection connection = DriverManager.getConnection(url, usernamedb, passworddb);
+        Statement statement = connection.createStatement();
 
-		    // Updated SQL query to filter by specific status values
-		    String sqlQuery = "SELECT id, fullname, contactnumber, datereserve, typeofroom, status " +
-		                      "FROM reservation " +
-		                      "WHERE status IN ('ON-GOING', 'PENDING', 'DONE')";
+        // Updated SQL query to filter by specific status values and order by date
+        String sqlQuery = "SELECT id, fullname, contactnumber, datereserve, typeofroom, status " +
+                          "FROM reservation " +
+                          "WHERE status IN ('ON-GOING', 'PENDING', 'DONE') " +
+                          "ORDER BY datereserve ASC";
 
-		    ResultSet rSet = statement.executeQuery(sqlQuery);
+        ResultSet rSet = statement.executeQuery(sqlQuery);
 
-		    while (rSet.next()) {
-		        String id = String.valueOf(rSet.getInt(1));
-		        String fullname = rSet.getString(2);
-		        String contactnumber = rSet.getString(3);
-		        String datereserve = String.valueOf(rSet.getDate(4));
-		        String room = rSet.getString(5);
-		        String status = rSet.getString(6);
-		        String add_row[] = {id, fullname, contactnumber, datereserve, room, status};
-		        reservemodel.addRow(add_row);
-		    }
+        while (rSet.next()) {
+            String id = String.valueOf(rSet.getInt(1));
+            String fullname = rSet.getString(2);
+            String contactnumber = rSet.getString(3);
+            String datereserve = String.valueOf(rSet.getDate(4));
+            String room = rSet.getString(5);
+            String status = rSet.getString(6);
+            String add_row[] = {id, fullname, contactnumber, datereserve, room, status};
+            reservemodel.addRow(add_row);
+        }
 
-		    connection.close();
-		} catch (Exception e) {
-		    System.out.println(e);
-		}
-	 }
+        connection.close();
+    } catch (Exception e) {
+        System.out.println(e);
+    }
+}
+
 }

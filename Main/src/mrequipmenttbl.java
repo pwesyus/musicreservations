@@ -270,7 +270,7 @@ public class mrequipmenttbl implements designs {
         equipsettingsbtn.setBounds(30, 386, 150, 65);
         equiplogoutbtn.setBounds(30, 461, 150, 65);
         equipmentsp.setBounds(210, 130, 640, 300);
-        equipment.setBounds(100, 50, 900, 600);
+        equipment.setBounds(225, 70, 900, 600);
 
         // add components
         equipment.add(equipmenttitletext);

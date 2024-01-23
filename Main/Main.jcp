@@ -60,6 +60,10 @@
 				<folder>src</folder>
 			</fileitem>
 			<fileitem>
+				<path>src\mraddequipment.java</path>
+				<folder>src</folder>
+			</fileitem>
+			<fileitem>
 				<path>src\mraddreservation.java</path>
 				<folder>src</folder>
 			</fileitem>
@@ -68,11 +72,27 @@
 				<folder>src</folder>
 			</fileitem>
 			<fileitem>
+				<path>src\mreditequipment.java</path>
+				<folder>src</folder>
+			</fileitem>
+			<fileitem>
 				<path>src\mreditreservation.java</path>
 				<folder>src</folder>
 			</fileitem>
 			<fileitem>
+				<path>src\mrequipmenttbl.java</path>
+				<folder>src</folder>
+			</fileitem>
+			<fileitem>
 				<path>src\mrreservationtbl.java</path>
+				<folder>src</folder>
+			</fileitem>
+			<fileitem>
+				<path>src\mrroom.java</path>
+				<folder>src</folder>
+			</fileitem>
+			<fileitem>
+				<path>src\mrsettings.java</path>
 				<folder>src</folder>
 			</fileitem>
 			<fileitem>

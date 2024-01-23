@@ -127,7 +127,7 @@ public class Login implements designs {
         showPasswordCheckbox.setBounds(485, 355, 200, 30);
 
         login.setLayout(null);
-        login.setBounds(0, 0, 900, 600);
+        login.setBounds(225, 70, 900, 600);
         login.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         login.setVisible(true);
     }

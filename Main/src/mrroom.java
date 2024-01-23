@@ -409,7 +409,7 @@ public class mrroom implements designs {
         roomlogoutbtn.setBounds(30, 461, 150, 65);
 
         // reservesp.setBounds(210, 130, 640, 300);
-        roomsModule.setBounds(100, 50, 900, 600);
+        roomsModule.setBounds(225, 70, 900, 600);
 
         // add components
         roomsModule.add(roomtitletext);

@@ -800,7 +800,7 @@ public class mraddreservation implements designs {
 		// addonsbox.setBounds(570, 80, 285, 350);
 		compute.setBounds(645, 450, 180, 40);
 		reserve.setBounds(645, 500, 180, 40);
-		addreservation.setBounds(100, 50, 900, 600);
+		addreservation.setBounds(225, 70, 900, 600);
 
 		// bg
 		addreservation.getContentPane().setBackground(Color.WHITE);

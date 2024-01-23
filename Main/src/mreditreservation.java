@@ -662,7 +662,7 @@ public class mreditreservation implements designs {
 		editaddonsbox.setBounds(570, 80, 285, 350);
 		editcompute.setBounds(645, 450, 180, 40);
 		editreserve.setBounds(645, 500, 180, 40);
-		editreservation.setBounds(100, 50, 900, 600);
+		editreservation.setBounds(225, 70, 900, 600);
 
         // bg
         editreservation.getContentPane().setBackground(Color.WHITE);

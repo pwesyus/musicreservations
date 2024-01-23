@@ -7,6 +7,7 @@ C:\Users\Admin\Desktop\MusicReservation\Main\src\mrdashboard.java
 C:\Users\Admin\Desktop\MusicReservation\Main\src\mreditequipment.java
 C:\Users\Admin\Desktop\MusicReservation\Main\src\mreditreservation.java
 C:\Users\Admin\Desktop\MusicReservation\Main\src\mrequipmenttbl.java
+C:\Users\Admin\Desktop\MusicReservation\Main\src\mrforapproved.java
 C:\Users\Admin\Desktop\MusicReservation\Main\src\mrreservationtbl.java
 C:\Users\Admin\Desktop\MusicReservation\Main\src\mrroom.java
 C:\Users\Admin\Desktop\MusicReservation\Main\src\mrsettings.java

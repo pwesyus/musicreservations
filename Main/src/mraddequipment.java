@@ -228,7 +228,7 @@ public class mraddequipment implements designs {
         imageLabel.setBounds(460, 257, 242, 110);
 		saveequip.setBounds(430, 400, 180, 40);
 		backequip.setBounds(230, 400, 180, 40);
-        addequipmentf.setBounds(100, 50, 900, 600);
+        addequipmentf.setBounds(225, 70, 900, 600);
 
 
         // bg

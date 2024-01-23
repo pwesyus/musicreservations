@@ -412,7 +412,7 @@ public class mrviewreservation implements designs {
 		viewmicstand.setBounds(590, 390, 150, 30);
 		viewaddonsbox.setBounds(570, 80, 285, 350);
 		viewreserve.setBounds(645, 480, 180, 40);
-		viewreservation.setBounds(100, 50, 900, 600);
+		viewreservation.setBounds(225, 70, 900, 600);
 		// Iterate through all components
 
 
@@ -532,6 +532,7 @@ public class mrviewreservation implements designs {
                 deleteStatement.setInt(1, getid);
                 deleteStatement.executeUpdate();
             }
+
             mrreservationtbl reserve = new mrreservationtbl();
         	reserve.reservations();
 
