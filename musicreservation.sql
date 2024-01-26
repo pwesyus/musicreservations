@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 26, 2024 at 11:25 AM
+-- Generation Time: Jan 26, 2024 at 01:30 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -109,6 +109,50 @@ INSERT INTO `archivereservation` (`id`, `fullname`, `address`, `contactnumber`, 
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `declineclient`
+--
+
+CREATE TABLE `declineclient` (
+  `id` int(11) NOT NULL,
+  `fullname` varchar(50) NOT NULL,
+  `address` varchar(255) NOT NULL,
+  `contactnumber` varchar(20) NOT NULL,
+  `typeofroom` varchar(100) NOT NULL,
+  `datereserve` date NOT NULL,
+  `starttime` time NOT NULL,
+  `endtime` time NOT NULL,
+  `status` varchar(20) NOT NULL,
+  `pax` int(20) NOT NULL,
+  `additionalpax` int(20) NOT NULL,
+  `addontotal` int(20) NOT NULL,
+  `downpayment` int(20) NOT NULL,
+  `total` int(20) NOT NULL,
+  `grandtotal` int(20) NOT NULL,
+  `drums` int(20) NOT NULL,
+  `flute` int(20) NOT NULL,
+  `piano` int(20) NOT NULL,
+  `acoustic` int(20) NOT NULL,
+  `electric` int(20) NOT NULL,
+  `amplifier` int(20) NOT NULL,
+  `microphone` int(20) NOT NULL,
+  `musicstand` int(20) NOT NULL,
+  `headphone` int(20) NOT NULL,
+  `micstand` int(20) NOT NULL,
+  `user` varchar(20) NOT NULL,
+  `reason` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `declineclient`
+--
+
+INSERT INTO `declineclient` (`id`, `fullname`, `address`, `contactnumber`, `typeofroom`, `datereserve`, `starttime`, `endtime`, `status`, `pax`, `additionalpax`, `addontotal`, `downpayment`, `total`, `grandtotal`, `drums`, `flute`, `piano`, `acoustic`, `electric`, `amplifier`, `microphone`, `musicstand`, `headphone`, `micstand`, `user`, `reason`) VALUES
+(9, 'dsa', 'dsa', '21', 'DELUXE ROOM 2', '2024-01-26', '10:01:00', '11:00:00', 'WAITING', 15, 0, 1900, 2250, 2600, 4500, 0, 0, 0, 0, 1, 1, 0, 1, 0, 0, '', 'das'),
+(14, 'dsa', 'dsa', '32', 'MUSIC ROOM 3', '2024-01-27', '10:01:00', '11:00:00', 'DECLINE', 7, 21, 0, 1364, 2729, 2729, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'client', 'gfd');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `equipment`
 --
 
@@ -196,29 +240,37 @@ CREATE TABLE `reservation` (
   `microphone` int(11) NOT NULL,
   `musicstand` int(11) NOT NULL,
   `headphone` int(11) NOT NULL,
-  `micstand` int(11) NOT NULL
+  `micstand` int(11) NOT NULL,
+  `user` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `reservation`
 --
 
-INSERT INTO `reservation` (`id`, `fullname`, `address`, `contactnumber`, `typeofroom`, `datereserve`, `starttime`, `endtime`, `status`, `pax`, `additionalpax`, `addontotal`, `downpayment`, `total`, `grandtotal`, `drums`, `flute`, `piano`, `acoustic`, `electric`, `amplifier`, `microphone`, `musicstand`, `headphone`, `micstand`) VALUES
-(1, 'dsa', 'dsa', '2', 'MUSIC ROOM 3', '2024-01-26', '10:01:00', '11:00:00', 'ON-GOING', 7, 0, 500, 575, 650, 1150, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-(2, 'dsa', 'dsa', '32', 'MUSIC ROOM 3', '2024-01-26', '11:01:00', '12:00:00', 'DONE', 7, 0, 500, 250, 0, 500, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-(4, 'dsa', 'dsa', '21', 'RECORDING ROOM 1', '2024-01-26', '10:01:00', '11:00:00', 'DONE', 7, 0, 500, 900, 1300, 1800, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-(5, 'sda', 'dsa', '121', 'MUSIC ROOM 2', '2024-01-26', '10:01:00', '11:00:00', 'DONE', 7, 3, 500, 723, 947, 1447, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-(6, 'ds', 'dsa', '12', 'MUSIC ROOM 1', '2024-01-26', '14:01:00', '16:00:00', 'ON-GOING', 7, 2, 500, 999, 1498, 1998, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-(7, 'dsa', 'dsa21', '12', 'DELUXE ROOM 1', '2024-01-26', '10:01:00', '11:00:00', 'PENDING', 15, 0, 4800, 3700, 2600, 7400, 0, 0, 1, 1, 0, 0, 1, 1, 0, 1),
-(8, 'dsa', 'dsa', '32', 'MUSIC ROOM 1', '2024-01-26', '10:01:00', '11:00:00', 'WAITING', 7, 21, 300, 1514, 2729, 3029, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0),
-(9, 'dsa', 'dsa', '21', 'DELUXE ROOM 2', '2024-01-26', '10:01:00', '11:00:00', 'WAITING', 15, 0, 1900, 2250, 2600, 4500, 0, 0, 0, 0, 1, 1, 0, 1, 0, 0),
-(10, 'GF', 'GFD', '21', 'RECORDING ROOM 2', '2024-01-26', '16:01:00', '18:00:00', 'WAITING', 7, 0, 2700, 2650, 2600, 5300, 0, 1, 0, 1, 0, 0, 1, 0, 0, 0),
-(11, 'dsa', 'dsa', '32', 'MUSIC ROOM 2', '2024-01-31', '10:01:00', '11:00:00', 'WAITING', 7, 0, 1600, 1125, 650, 2250, 0, 0, 0, 1, 0, 0, 1, 0, 1, 0),
-(12, 'sd', 'dsa', '21', 'MUSIC ROOM 2', '2024-01-13', '10:01:00', '11:00:00', 'WAITING', 7, 21, 800, 1764, 2729, 3529, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0);
+INSERT INTO `reservation` (`id`, `fullname`, `address`, `contactnumber`, `typeofroom`, `datereserve`, `starttime`, `endtime`, `status`, `pax`, `additionalpax`, `addontotal`, `downpayment`, `total`, `grandtotal`, `drums`, `flute`, `piano`, `acoustic`, `electric`, `amplifier`, `microphone`, `musicstand`, `headphone`, `micstand`, `user`) VALUES
+(1, 'dsa', 'dsa', '2', 'MUSIC ROOM 3', '2024-01-26', '10:01:00', '11:00:00', 'ON-GOING', 7, 0, 500, 575, 650, 1150, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, ''),
+(2, 'dsa', 'dsa', '32', 'MUSIC ROOM 3', '2024-01-26', '11:01:00', '12:00:00', 'DONE', 7, 0, 500, 250, 0, 500, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, ''),
+(4, 'dsa', 'dsa', '21', 'RECORDING ROOM 1', '2024-01-26', '10:01:00', '11:00:00', 'DONE', 7, 0, 500, 900, 1300, 1800, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, ''),
+(5, 'sda', 'dsa', '121', 'MUSIC ROOM 2', '2024-01-26', '10:01:00', '11:00:00', 'DONE', 7, 3, 500, 723, 947, 1447, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, ''),
+(6, 'ds', 'dsa', '12', 'MUSIC ROOM 1', '2024-01-26', '14:01:00', '16:00:00', 'ON-GOING', 7, 2, 500, 999, 1498, 1998, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'admin'),
+(7, 'dsa', 'dsa21', '12', 'DELUXE ROOM 1', '2024-01-26', '10:01:00', '11:00:00', 'PENDING', 15, 0, 4800, 3700, 2600, 7400, 0, 0, 1, 1, 0, 0, 1, 1, 0, 1, ''),
+(8, 'dsa', 'dsa', '32', 'MUSIC ROOM 1', '2024-01-26', '10:01:00', '11:00:00', 'PENDING', 7, 21, 300, 1514, 2729, 3029, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, ''),
+(10, 'GF', 'GFD', '21', 'RECORDING ROOM 2', '2024-01-26', '16:01:00', '18:00:00', 'PENDING', 7, 0, 2700, 2650, 2600, 5300, 0, 1, 0, 1, 0, 0, 1, 0, 0, 0, ''),
+(11, 'dsa', 'dsa', '32', 'MUSIC ROOM 2', '2024-01-31', '10:01:00', '11:00:00', 'PENDING', 7, 0, 1600, 1125, 650, 2250, 0, 0, 0, 1, 0, 0, 1, 0, 1, 0, ''),
+(12, 'sd', 'dsa', '21', 'MUSIC ROOM 2', '2024-01-13', '10:01:00', '11:00:00', 'PENDING', 7, 21, 800, 1764, 2729, 3529, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, ''),
+(13, 'dsa', 'dsa', '32', 'MUSIC ROOM 2', '2024-01-01', '10:01:00', '11:00:00', 'PENDING', 7, 0, 400, 525, 650, 1050, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 'admin'),
+(15, 'dsa', 'd', '21', 'RECORDING ROOM 1', '2024-01-05', '10:01:00', '11:00:00', 'PENDING', 7, 0, 900, 1100, 1300, 2200, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 'client');
 
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `declineclient`
+--
+ALTER TABLE `declineclient`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `equipment`
@@ -246,7 +298,7 @@ ALTER TABLE `equipment`
 -- AUTO_INCREMENT for table `reservation`
 --
 ALTER TABLE `reservation`
-  MODIFY `id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
