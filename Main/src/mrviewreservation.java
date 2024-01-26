@@ -424,7 +424,10 @@ public class mrviewreservation implements designs {
         viewreservation.setVisible(true);
 	}
 
-	public void archivereservation(int getid){
+public void archivereservation(int getid) {
+    int confirmation = JOptionPane.showConfirmDialog(null, "Do you want to archive this reservation?", "Confirmation", JOptionPane.YES_NO_OPTION);
+
+    if (confirmation == JOptionPane.YES_OPTION) {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
             Connection connection = DriverManager.getConnection(url, usernamedb, passworddb);
@@ -467,43 +470,41 @@ public class mrviewreservation implements designs {
                     String archiveSql = "INSERT INTO archivereservation (id, fullname, address, contactnumber, typeofroom, datereserve, starttime, endtime, status, pax, additionalpax, addontotal, downpayment, grandtotal, total, drums, flute, piano, acoustic, electric, amplifier, microphone, musicstand, headphone, micstand) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
                     try (PreparedStatement archiveStatement = connection.prepareStatement(archiveSql)) {
-                     // Set parameters for the archive statement
-					archiveStatement.setInt(1, getid); // Assuming getid is an integer
-					archiveStatement.setString(2, fullname);
-					archiveStatement.setString(3, address);
-					archiveStatement.setString(4, contactnum);
-					archiveStatement.setString(5, roomtype);
-					LocalDate localDate = LocalDate.parse(datereservation, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-					archiveStatement.setDate(6, java.sql.Date.valueOf(localDate));
+                        // Set parameters for the archive statement
+                        archiveStatement.setInt(1, getid); // Assuming getid is an integer
+                        archiveStatement.setString(2, fullname);
+                        archiveStatement.setString(3, address);
+                        archiveStatement.setString(4, contactnum);
+                        archiveStatement.setString(5, roomtype);
+                        LocalDate localDate = LocalDate.parse(datereservation, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+                        archiveStatement.setDate(6, java.sql.Date.valueOf(localDate));
 
-					LocalTime localStartTime = LocalTime.parse(starttime, DateTimeFormatter.ofPattern("HH:mm:ss"));
-					LocalTime localEndTime = LocalTime.parse(endtime, DateTimeFormatter.ofPattern("HH:mm:ss"));
-					archiveStatement.setTime(7, java.sql.Time.valueOf(localStartTime));
-					archiveStatement.setTime(8, java.sql.Time.valueOf(localEndTime));
+                        LocalTime localStartTime = LocalTime.parse(starttime, DateTimeFormatter.ofPattern("HH:mm:ss"));
+                        LocalTime localEndTime = LocalTime.parse(endtime, DateTimeFormatter.ofPattern("HH:mm:ss"));
+                        archiveStatement.setTime(7, java.sql.Time.valueOf(localStartTime));
+                        archiveStatement.setTime(8, java.sql.Time.valueOf(localEndTime));
 
-					archiveStatement.setString(9, status);
-					archiveStatement.setInt(10, pax);
-					archiveStatement.setInt(11, addpax);
-					archiveStatement.setInt(12, addontotal);
-					archiveStatement.setInt(13, downpayment);
-					archiveStatement.setInt(14, grandtotal);
-					archiveStatement.setInt(15, total);
-					archiveStatement.setInt(16, drumsch);
-					archiveStatement.setInt(17, flutech);
-					archiveStatement.setInt(18, pianoch);
-					archiveStatement.setInt(19, acousticch);
-					archiveStatement.setInt(20, electricch);
-					archiveStatement.setInt(21, amplifierch);
-					archiveStatement.setInt(22, micch);
-					archiveStatement.setInt(23, musicstandch);
-					archiveStatement.setInt(24, headphonech);
-					archiveStatement.setInt(25, micstandch);
-
+                        archiveStatement.setString(9, status);
+                        archiveStatement.setInt(10, pax);
+                        archiveStatement.setInt(11, addpax);
+                        archiveStatement.setInt(12, addontotal);
+                        archiveStatement.setInt(13, downpayment);
+                        archiveStatement.setInt(14, grandtotal);
+                        archiveStatement.setInt(15, total);
+                        archiveStatement.setInt(16, drumsch);
+                        archiveStatement.setInt(17, flutech);
+                        archiveStatement.setInt(18, pianoch);
+                        archiveStatement.setInt(19, acousticch);
+                        archiveStatement.setInt(20, electricch);
+                        archiveStatement.setInt(21, amplifierch);
+                        archiveStatement.setInt(22, micch);
+                        archiveStatement.setInt(23, musicstandch);
+                        archiveStatement.setInt(24, headphonech);
+                        archiveStatement.setInt(25, micstandch);
 
                         // Execute the archive statement
                         archiveStatement.executeUpdate();
                         JOptionPane.showMessageDialog(null, "Reservation archived successfully!");
-
 
                         // Call the method to delete the reservation from the original table
                         deleteReservation(getid);
@@ -513,13 +514,15 @@ public class mrviewreservation implements designs {
                     JOptionPane.showMessageDialog(null, "Error archiving reservation.", "Error", JOptionPane.ERROR_MESSAGE);
                 }
             }
-
-            connection.close();
         } catch (Exception ex) {
             ex.printStackTrace();
             JOptionPane.showMessageDialog(null, "ERROR: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
+    } else {
+        JOptionPane.showMessageDialog(null, "Reservation archiving canceled.", "Canceled", JOptionPane.INFORMATION_MESSAGE);
     }
+}
+
 
     public void deleteReservation(int getid) {
         try {
@@ -531,10 +534,11 @@ public class mrviewreservation implements designs {
             try (PreparedStatement deleteStatement = connection.prepareStatement(deleteQuery)) {
                 deleteStatement.setInt(1, getid);
                 deleteStatement.executeUpdate();
+                mrreservationtbl reserve = new mrreservationtbl();
+        		reserve.reservations();
             }
 
-            mrreservationtbl reserve = new mrreservationtbl();
-        	reserve.reservations();
+
 
             connection.close();
         } catch (Exception ex) {

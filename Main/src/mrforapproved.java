@@ -73,6 +73,8 @@ public class mrforapproved implements designs {
 		forapprovedback.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
             	forapproved.setVisible(false);
+            	mrreservationtbl reserve = new mrreservationtbl();
+        		reserve.reservations();
 
             }
 		});

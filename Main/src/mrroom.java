@@ -221,9 +221,12 @@ public class mrroom implements designs {
     String currentTime = currentDateTime.format(timeFormatter);
 
     // Query to retrieve reservations matching the conditions
-    String sqlQuery = "SELECT id, datereserve, starttime, endtime, typeofroom FROM reservation " +
-                      "WHERE datereserve = '" + currentDate + "' " +
-                      "AND starttime <= '" + currentTime + "' AND endtime >= '" + currentTime + "'";
+    String sqlQuery = "SELECT id, datereserve, starttime, endtime, typeofroom " +
+                  "FROM reservation " +
+                  "WHERE datereserve = '" + currentDate + "' " +
+                  "AND starttime <= '" + currentTime + "' " +
+                  "AND endtime >= '" + currentTime + "' " +
+                  "AND status = 'on-going'";
     ResultSet resultSet = statement.executeQuery(sqlQuery);
 
     while (resultSet.next()) {
@@ -359,36 +362,36 @@ public class mrroom implements designs {
         jpnl.setBounds(210, 150, 650, 160);
         // package 1
         lblMusicRoom.setBounds(250, 300, 200, 160);
-        lblMRInclusions.setBounds(270, 330, 200, 160);
-        lblAllMusicalEquipments.setBounds(230, 370, 170, 100);
-        lblAllSoundSystems.setBounds(230, 380, 170, 100);
-        lblTotalPerson.setBounds(230, 390, 170, 100);
-        lblRoomPrice.setBounds(230, 400, 170, 100);
-        lblRoomPriceHr.setBounds(230, 410, 170, 100);
-        jpnl2.setBounds(210, 360, 200, 160);
+        lblMRInclusions.setBounds(270, 320, 200, 160);
+        lblAllMusicalEquipments.setBounds(230, 380, 170, 100);
+        lblAllSoundSystems.setBounds(230, 395, 170, 100);
+        lblTotalPerson.setBounds(230, 410, 170, 100);
+        lblRoomPrice.setBounds(230, 425, 170, 100);
+        lblRoomPriceHr.setBounds(230, 440, 170, 100);
+        jpnl2.setBounds(210, 360, 200, 180);
         // package 2
         lblPackageRRoom.setBounds(460, 300, 200, 160);
         lblPRInclusions.setBounds(510, 320, 200, 160);
-        lblAllRecordingEquipments.setBounds(440, 330, 200, 160);
-        DAW.setBounds(440, 340, 200, 160);
-        PC.setBounds(440, 350, 200, 160);
-        midi.setBounds(440, 360, 200, 160);
-        PRTotalPerson.setBounds(440, 370, 200, 160);
-        PRPerDay.setBounds(440, 380, 200, 160);
-        PRPerHR.setBounds(440, 390, 200, 160);
+        lblAllRecordingEquipments.setBounds(440, 335, 200, 160);
+        DAW.setBounds(440, 350, 200, 160);
+        PC.setBounds(440, 365, 200, 160);
+        midi.setBounds(440, 380, 200, 160);
+        PRTotalPerson.setBounds(440, 395, 200, 160);
+        PRPerDay.setBounds(440, 410, 200, 160);
+        PRPerHR.setBounds(440, 425, 200, 160);
         // package 3
-        lblPackageDRoom.setBounds(710, 300, 200, 160);
-        lblDRInclusions.setBounds(720, 315, 200, 160);
-        lblDRAllRecordingEquipments.setBounds(670, 325, 200, 160);
-        lblDRAllSoundsSystems.setBounds(670, 335, 200, 160);
-        DRDAW.setBounds(670, 345, 200, 160);
-        DRPC.setBounds(670, 355, 200, 160);
-        DRmidi.setBounds(670, 365, 200, 160);
-        DRTotalPerson.setBounds(670, 375, 200, 160);
-        DRPerDay.setBounds(670, 385, 200, 160);
-        DRRoomHr.setBounds(670, 395, 200, 160);
-        jpnl3.setBounds(435, 360, 200, 160);
-        jpnl4.setBounds(660, 360, 200, 160);
+        lblPackageDRoom.setBounds(690, 300, 200, 160);
+        lblDRInclusions.setBounds(720, 320, 200, 160);
+        lblDRAllRecordingEquipments.setBounds(670, 335, 200, 160);
+        lblDRAllSoundsSystems.setBounds(670, 350, 200, 160);
+        DRDAW.setBounds(670, 365, 200, 160);
+        DRPC.setBounds(670, 380, 200, 160);
+        DRmidi.setBounds(670, 395, 200, 160);
+        DRTotalPerson.setBounds(670, 410, 200, 160);
+        DRPerDay.setBounds(670, 425, 200, 160);
+        DRRoomHr.setBounds(670, 440, 200, 160);
+        jpnl3.setBounds(435, 360, 200, 180);
+        jpnl4.setBounds(660, 360, 200, 180);
 
         // ROOMS BUTTONS SET BOUNDS
         room1.setBounds(210, 150, 150, 52);

@@ -16,6 +16,8 @@ import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import javax.swing.border.LineBorder;
+import com.github.lgooddatepicker.components.*;
+import com.github.lgooddatepicker.components.DatePicker.*;
 
 
 public class mreditreservation implements designs {
@@ -23,6 +25,33 @@ public class mreditreservation implements designs {
 		public static String url = "jdbc:mysql://localhost:3306/musicreservation";
 	    public static String usernamedb = "root";
 	    public static String passworddb = "";
+
+	    private JTextField editfulltf;
+		private JTextField editaddresstf;
+		private JTextField editcontactnumtf;
+		private JComboBox editroomtypecb;
+		private JTextField editdatereservationtf;
+		private JTextField editstarttimetf;
+		private JTextField editendtimetf;
+		private JComboBox editstatuscb;
+		private JTextField editpaxtf;
+		private JTextField editaddpaxtf;
+		private JTextField editaddontotaltf;
+		private JTextField editdownpaymenttf;
+		private JTextField edittotaltf;
+		private JTextField editgrandtotaltf;
+		private JCheckBox editdrums;
+		private JCheckBox editflute;
+		private JCheckBox editpiano;
+		private JCheckBox editacoustic;
+		private JCheckBox editelectric;
+		private JCheckBox editampli;
+		private JCheckBox editmic;
+		private JCheckBox editstand;
+		private JCheckBox editheadphone;
+		private JCheckBox editmicstand;
+
+		public String editgetstatus;
 
 	public void editreservations(int getid){
 		//EDIT RESERVATION
@@ -38,23 +67,23 @@ public class mreditreservation implements designs {
         //declare component
         JLabel editfullname = new JLabel("FULL NAME");
         editfullname.setFont(subtitle);
-        JTextField editfulltf = new JTextField();
+        editfulltf = new JTextField();
         editfulltf.setFont(subtitle);
 
         JLabel editaddress = new JLabel("ADDRESS");
         editaddress.setFont(subtitle);
-        JTextField editaddresstf = new JTextField();
+        editaddresstf = new JTextField();
         editaddresstf.setFont(subtitle);
 
         JLabel editcontactnum = new JLabel("CONTACT NUMBER");
         editcontactnum.setFont(subtitle);
-        JTextField editcontactnumtf = new JTextField();
+        editcontactnumtf = new JTextField();
         editcontactnumtf.setFont(subtitle);
 
         JLabel editroomtype = new JLabel("TYPE OF ROOM");
         editroomtype.setFont(subtitle);
         String editroomtypearr [] = {"MUSIC ROOM 1", "MUSIC ROOM 2", "MUSIC ROOM 3", "RECORDING ROOM 1", "RECORDING ROOM 2", "DELUXE ROOM 1","DELUXE ROOM 2"};
-        JComboBox editroomtypecb = new JComboBox(editroomtypearr);
+        editroomtypecb = new JComboBox(editroomtypearr);
         editroomtypecb.setFont(subtitle);
         editroomtypecb.setEnabled(false);
         editroomtypecb.setBackground(lightgray);
@@ -63,7 +92,7 @@ public class mreditreservation implements designs {
 
         JLabel editdatereservation = new JLabel("DATE OF RESERVATION");
         editdatereservation.setFont(subtitle);
-        JTextField editdatereservationtf = new JTextField();
+        editdatereservationtf = new JTextField();
         editdatereservationtf.setFont(subtitle);
         editdatereservationtf.setBackground(lightgray);
         editdatereservationtf.setForeground(Color.BLACK);
@@ -72,7 +101,7 @@ public class mreditreservation implements designs {
 
         JLabel editstarttime = new JLabel("START TIME OF RESERVATION");
         editstarttime.setFont(subtitle);
-        JTextField editstarttimetf = new JTextField();
+        editstarttimetf = new JTextField();
         editstarttimetf.setFont(subtitle);
         editstarttimetf.setBackground(lightgray);
         editstarttimetf.setForeground(Color.BLACK);
@@ -81,7 +110,7 @@ public class mreditreservation implements designs {
 
         JLabel editendtime = new JLabel("END TIME OF RESERVATION");
         editendtime.setFont(subtitle);
-        JTextField editendtimetf = new JTextField();
+        editendtimetf = new JTextField();
         editendtimetf.setFont(subtitle);
         editendtimetf.setBackground(lightgray);
         editendtimetf.setForeground(Color.BLACK);
@@ -91,13 +120,13 @@ public class mreditreservation implements designs {
         JLabel editstatus = new JLabel("STATUS");
         editstatus.setFont(subtitle);
         String editstatusarr [] = {"PENDING", "ON-GOING", "DONE"};
-        JComboBox editstatuscb = new JComboBox(editstatusarr);
+        editstatuscb = new JComboBox(editstatusarr);
         editstatuscb.setFont(subtitle);
         editstatuscb.setBackground(Color.WHITE);
 
         JLabel editpax = new JLabel("PAX");
         editpax.setFont(subtitle);
-        JTextField editpaxtf = new JTextField(" MAX NUMBER OF PERSON");
+        editpaxtf = new JTextField(" MAX NUMBER OF PERSON");
         editpaxtf.setFont(subtitle);
         editpaxtf.setBackground(lightgray);
         editpaxtf.setForeground(Color.BLACK);
@@ -106,12 +135,12 @@ public class mreditreservation implements designs {
 
         JLabel editaddpax = new JLabel("ADDITIONAL PAX");
         editaddpax.setFont(subtitle);
-        JTextField editaddpaxtf = new JTextField();
+        editaddpaxtf = new JTextField();
         editaddpaxtf.setFont(subtitle);
 
 		JLabel editaddontotal = new JLabel("ADD-ON TOTAL");
         editaddontotal.setFont(subtitle);
-        JTextField editaddontotaltf = new JTextField();
+        editaddontotaltf = new JTextField();
         editaddontotaltf.setFont(subtitle);
         editaddontotaltf.setBackground(lightgray);
         editaddontotaltf.setForeground(Color.BLACK);
@@ -149,43 +178,43 @@ public class mreditreservation implements designs {
 		JLabel editaddonequip = new JLabel("ADD-ON EQUIPMENTS");
 		editaddonequip.setFont(list);
 
-		JCheckBox editdrums = new JCheckBox("DRUMS");
+		editdrums = new JCheckBox("DRUMS");
         editdrums.setFont(subtitle);
         editdrums.setBackground(Color.WHITE);
 
-        JCheckBox editflute = new JCheckBox("FLUTE");
+        editflute = new JCheckBox("FLUTE");
         editflute.setFont(subtitle);
         editflute.setBackground(Color.WHITE);
 
-        JCheckBox editpiano = new JCheckBox("PIANO");
+        editpiano = new JCheckBox("PIANO");
         editpiano.setFont(subtitle);
         editpiano.setBackground(Color.WHITE);
 
-        JCheckBox editacoustic = new JCheckBox("ACOUSTIC GUITAR");
+        editacoustic = new JCheckBox("ACOUSTIC GUITAR");
         editacoustic.setFont(subtitle);
         editacoustic.setBackground(Color.WHITE);
 
-        JCheckBox editelectric = new JCheckBox("ELECTRIC GUITAR");
+        editelectric = new JCheckBox("ELECTRIC GUITAR");
         editelectric.setFont(subtitle);
         editelectric.setBackground(Color.WHITE);
 
-        JCheckBox editampli = new JCheckBox("AMPLIFIER");
+        editampli = new JCheckBox("AMPLIFIER");
         editampli.setFont(subtitle);
         editampli.setBackground(Color.WHITE);
 
-        JCheckBox editmic = new JCheckBox("MICROPHONE");
+        editmic = new JCheckBox("MICROPHONE");
         editmic.setFont(subtitle);
         editmic.setBackground(Color.WHITE);
 
-        JCheckBox editstand = new JCheckBox("MUSIC STAND");
+        editstand = new JCheckBox("MUSIC STAND");
         editstand.setFont(subtitle);
         editstand.setBackground(Color.WHITE);
 
-        JCheckBox editheadphone = new JCheckBox("HEADPHONE");
+        editheadphone = new JCheckBox("HEADPHONE");
         editheadphone.setFont(subtitle);
         editheadphone.setBackground(Color.WHITE);
 
-        JCheckBox editmicstand = new JCheckBox("MIC STAND");
+        editmicstand = new JCheckBox("MIC STAND");
         editmicstand.setFont(subtitle);
         editmicstand.setBackground(Color.WHITE);
 
@@ -233,7 +262,7 @@ public class mreditreservation implements designs {
 	        String editgetdate = String.valueOf(rSet.getDate(6));
 			String editgetstarttime = String.valueOf(rSet.getTime(7));
 			String editgetendtime = String.valueOf(rSet.getTime(8));
-	        String editgetstatus = rSet.getString(9);
+	        editgetstatus = rSet.getString(9);
 	        String editgetpax= String.valueOf(rSet.getInt(10));
 	        String editgetadditionalpax = String.valueOf(rSet.getInt(11));
 	        String editgetaddontotal= String.valueOf(rSet.getInt(12));
@@ -291,21 +320,6 @@ public class mreditreservation implements designs {
 	}
 
 
-		editroomtypecb.addActionListener(new ActionListener() {
-	    	public void actionPerformed(ActionEvent e) {
-	    	String roomtype = editroomtypecb.getSelectedItem().toString();
-			if (roomtype.equalsIgnoreCase("MUSIC ROOM 1") ||
-					    roomtype.equalsIgnoreCase("MUSIC ROOM 2") ||
-					    roomtype.equalsIgnoreCase("MUSIC ROOM 3")) {
-					    editpaxtf.setText("7");
-					} else if (roomtype.equalsIgnoreCase("RECORDING ROOM 1") ||
-					           roomtype.equalsIgnoreCase("RECORDING ROOM 2")) {
-					     editpaxtf.setText("7");
-					} else {
-					   	 editpaxtf.setText("15");
-					}
-	    	}
-		});
 		editcontactnumtf.addKeyListener(new KeyAdapter() {
             public void keyTyped(KeyEvent e) {
                 char inputChar = e.getKeyChar();
@@ -344,8 +358,10 @@ public class mreditreservation implements designs {
         String datereservation = editdatereservationtf.getText();
         String starttime = editstarttimetf.getText();
         String endtime = editendtimetf.getText();
-        String status = editstatuscb.getSelectedItem().toString();
         String addonpax = editaddpaxtf.getText();
+        String status = editstatuscb.getSelectedItem().toString();
+
+
 
         try {
 
@@ -353,10 +369,7 @@ public class mreditreservation implements designs {
 		   JOptionPane.showMessageDialog(null, "Please fill in all required fields.");
 		   return;
 		   }
-		   if (!isValidDateFormat(datereservation) || !isValidTimeFormat(starttime) || !isValidTimeFormat(endtime)) {
-		       JOptionPane.showMessageDialog(null, "Invalid date or time format. Please check your input. \n     Examples:    Date: 1/1/2024     Time: 12:00 AM");
-		       return;
-		   }
+
             int pax = 0;
             int roomrate = 0;
             int addpaxrate = 0;
@@ -368,7 +381,8 @@ public class mreditreservation implements designs {
 
             try {
 
-		            LocalTime start = LocalTime.parse(starttime, DateTimeFormatter.ofPattern("h:mm a"));
+		            LocalTime beforestart = LocalTime.parse(starttime, DateTimeFormatter.ofPattern("h:mm a"));
+		            LocalTime start = beforestart.minusMinutes(1);
 			        LocalTime end = LocalTime.parse(endtime, DateTimeFormatter.ofPattern("h:mm a"));
 
 			        // Calculate duration
@@ -416,21 +430,21 @@ public class mreditreservation implements designs {
 		                totaladdpax = addpaxrate * addpax;
 		                total = roomrate + totaladdpax;
 		            }
-            } catch (NumberFormatException ex) {
-                JOptionPane.showMessageDialog(null, "Invalid value for Pax. Please enter a valid number.");
-                return;
-            }
 
-            if (editdrums.isSelected()) { addontotal += 500; }
-            if (editflute.isSelected()) { addontotal += 500; }
-            if (editpiano.isSelected()) { addontotal += 500; }
-            if (editacoustic.isSelected()) { addontotal += 500; }
-            if (editelectric.isSelected()) { addontotal += 500; }
-            if (editampli.isSelected()) { addontotal += 400; }
-            if (editmic.isSelected()) { addontotal += 100; }
-            if (editstand.isSelected()) { addontotal += 100; }
-            if (editheadphone.isSelected()) { addontotal += 100; }
-            if (editmicstand.isSelected()) { addontotal += 100; }
+		            String formattedStartTime = start.format(DateTimeFormatter.ofPattern("HH:mm:ss"));
+					String formattedEndTime = end.format(DateTimeFormatter.ofPattern("HH:mm:ss"));
+
+
+		            if (editdrums.isSelected()) { EquipmentAvailability("drums", datereservation, formattedStartTime, formattedEndTime); addontotal += getEquipmentRate("drums");}
+			        if (editflute.isSelected()) { EquipmentAvailability("flute", datereservation, formattedStartTime, formattedEndTime); addontotal += getEquipmentRate("flute"); }
+			        if (editpiano.isSelected()) { EquipmentAvailability("piano", datereservation, formattedStartTime, formattedEndTime); addontotal += getEquipmentRate("piano"); }
+		            if (editacoustic.isSelected()) { EquipmentAvailability("acoustic", datereservation, formattedStartTime, formattedEndTime); addontotal += getEquipmentRate("acoustic guitar"); }
+		            if (editelectric.isSelected()) { EquipmentAvailability("electric", datereservation, formattedStartTime, formattedEndTime); addontotal += getEquipmentRate("electric guitar"); }
+		            if (editampli.isSelected()) { EquipmentAvailability("amplifier", datereservation, formattedStartTime, formattedEndTime); addontotal += getEquipmentRate("amplifier"); }
+		            if (editmic.isSelected()) { EquipmentAvailability("microphone", datereservation, formattedStartTime, formattedEndTime); addontotal += getEquipmentRate("mic"); }
+		            if (editstand.isSelected()) { EquipmentAvailability("musicstand", datereservation, formattedStartTime, formattedEndTime); addontotal += getEquipmentRate("music stand"); }
+		            if (editheadphone.isSelected()) { EquipmentAvailability("headphone", datereservation, formattedStartTime, formattedEndTime); addontotal += getEquipmentRate("headphone"); }
+		            if (editmicstand.isSelected()) { EquipmentAvailability("micstand", datereservation, formattedStartTime, formattedEndTime); addontotal += getEquipmentRate("mic stand"); }
 
             grandtotal = total + addontotal;
             downpayment = grandtotal / 2;
@@ -441,112 +455,155 @@ public class mreditreservation implements designs {
             editgrandtotaltf.setText(String.valueOf(grandtotal));
 
             editreserve.setEnabled(true);
-
+		 } catch (NumberFormatException ex) {
+                JOptionPane.showMessageDialog(null, "Invalid value for Pax. Please enter a valid number.");
+            }
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(null, "An error occurred. Please check your input.");
-        }
-    }
-
-    private boolean isValidTimeFormat(String time) {
-        try {
-            LocalTime.parse(time, DateTimeFormatter.ofPattern("h:mm a"));
-            return true;
-        } catch (DateTimeParseException e) {
-            return false;
-        }
-    }
-
-    private boolean isValidDateFormat(String date) {
-        try {
-            LocalDate.parse(date, DateTimeFormatter.ofPattern("M/d/yyyy"));
-            return true;
-        } catch (DateTimeParseException e) {
-            return false;
         }
     }
 });
 
 
 
-	editreserve.addActionListener(new ActionListener() {
+editreserve.addActionListener(new ActionListener() {
     public void actionPerformed(ActionEvent e) {
-        String fullname = editfulltf.getText();
-        String address = editaddresstf.getText();
-        String contactnum = editcontactnumtf.getText();
-        String roomtype = editroomtypecb.getSelectedItem().toString();
-        String datereservation = editdatereservationtf.getText();
-        String starttime = editstarttimetf.getText();
-        String endtime = editendtimetf.getText();
-        String status = editstatuscb.getSelectedItem().toString();
-        int pax = Integer.parseInt(editpaxtf.getText());
-        int addpax = Integer.parseInt(editaddpaxtf.getText());
-        int addontotal = Integer.parseInt(editaddontotaltf.getText());
-        int total = Integer.parseInt(edittotaltf.getText());
-        int downpayment = Integer.parseInt(editdownpaymenttf.getText());
-        int grandtotal = Integer.parseInt(editgrandtotaltf.getText());
-        int drumsch = editdrums.isSelected() ? 1 : 0;
-        int flutech = editflute.isSelected() ? 1 : 0;
-        int pianoch = editpiano.isSelected() ? 1 : 0;
-        int acousticch = editacoustic.isSelected() ? 1 : 0;
-        int electricch = editelectric.isSelected() ? 1 : 0;
-        int amplifierch = editampli.isSelected() ? 1 : 0;
-        int micch = editmic.isSelected() ? 1 : 0;
-        int musicstandch = editstand.isSelected() ? 1 : 0;
-        int headphonech = editheadphone.isSelected() ? 1 : 0;
-        int micstandch = editmicstand.isSelected() ? 1 : 0;
+        int confirmation = JOptionPane.showConfirmDialog(null, "Are you sure you want to reserve this?", "Confirmation", JOptionPane.YES_NO_OPTION);
 
-        try {
-            Connection connection = DriverManager.getConnection(url, usernamedb, passworddb);
-            connection.setAutoCommit(false);
+        if (confirmation == JOptionPane.YES_OPTION) {
+            String fullname = editfulltf.getText();
+            String address = editaddresstf.getText();
+            String contactnum = editcontactnumtf.getText();
+            String roomtype = editroomtypecb.getSelectedItem().toString();
+            LocalDate datereservation = LocalDate.parse(editdatereservationtf.getText(), DateTimeFormatter.ofPattern("M/d/yyyy"));
+            String starttime = editstarttimetf.getText();
+            String endtime = editendtimetf.getText();
+            String status = editstatuscb.getSelectedItem().toString();
+            int pax = Integer.parseInt(editpaxtf.getText());
+            int addpax = Integer.parseInt(editaddpaxtf.getText());
+            int addontotal = Integer.parseInt(editaddontotaltf.getText());
+            int total = Integer.parseInt(edittotaltf.getText());
+            int downpayment = Integer.parseInt(editdownpaymenttf.getText());
+            int grandtotal = Integer.parseInt(editgrandtotaltf.getText());
 
-            String sqlUpdate = "UPDATE reservation SET fullname=?, address=?, contactnumber=?, typeofroom=?, datereserve=?, starttime=?, endtime=?, status=?, pax=?, additionalpax=?, addontotal=?, downpayment=?, total=?, grandtotal=?, drums=?, flute=?, piano=?, acoustic=?, electric=?, amplifier=?, microphone=?, musicstand=?, headphone=?, micstand=? WHERE id=?";
+            int drumsch = 0;
+            int flutech = 0;
+            int pianoch = 0;
+            int acousticch = 0;
+            int electricch = 0;
+            int amplifierch = 0;
+            int micch = 0;
+            int musicstandch = 0;
+            int headphonech = 0;
+            int micstandch = 0;
 
-            try (PreparedStatement preparedStatement = connection.prepareStatement(sqlUpdate)) {
-                preparedStatement.setString(1, fullname);
-                preparedStatement.setString(2, address);
-                preparedStatement.setString(3, contactnum);
-                preparedStatement.setString(4, roomtype);
-                LocalDate localDate = LocalDate.parse(datereservation, DateTimeFormatter.ofPattern("M/d/yyyy"));
-                preparedStatement.setDate(5, java.sql.Date.valueOf(localDate));
-                LocalTime localStartTime = LocalTime.parse(starttime, DateTimeFormatter.ofPattern("h:mm a"));
-                LocalTime localEndTime = LocalTime.parse(endtime, DateTimeFormatter.ofPattern("h:mm a"));
-                preparedStatement.setTime(6, java.sql.Time.valueOf(localStartTime));
-                preparedStatement.setTime(7, java.sql.Time.valueOf(localEndTime));
-                preparedStatement.setString(8, status);
-                preparedStatement.setInt(9, pax);
-                preparedStatement.setInt(10, addpax);
-                preparedStatement.setInt(11, addontotal);
-                preparedStatement.setInt(12, downpayment);
-                preparedStatement.setInt(13, total);
-                preparedStatement.setInt(14, grandtotal);
-                preparedStatement.setInt(15, drumsch);
-                preparedStatement.setInt(16, flutech);
-                preparedStatement.setInt(17, pianoch);
-                preparedStatement.setInt(18, acousticch);
-                preparedStatement.setInt(19, electricch);
-                preparedStatement.setInt(20, amplifierch);
-                preparedStatement.setInt(21, micch);
-                preparedStatement.setInt(22, musicstandch);
-                preparedStatement.setInt(23, headphonech);
-                preparedStatement.setInt(24, micstandch);
-                preparedStatement.setInt(25, getid);
+            try {
+                Connection connection = DriverManager.getConnection(url, usernamedb, passworddb);
+                connection.setAutoCommit(false);
 
-                int rowsAffected = preparedStatement.executeUpdate();
-                System.out.println("Rows affected: " + rowsAffected);
-
-                connection.commit();
-                JOptionPane.showMessageDialog(null, "Reservation Updated Successful!");
-            } catch (SQLException ex) {
-                // Handle exceptions and rollback the transaction
-                if (connection != null) {
-                    connection.rollback();
+                if (editgetstatus.equals(status)){
+                	if (editdrums.isSelected()) 	{	drumsch = 1;	}
+	                if (editflute.isSelected()) 	{	flutech = 1;	}
+					if (editpiano.isSelected()) 	{	pianoch = 1;	}
+				    if (editacoustic.isSelected()) 	{	acousticch = 1;	}
+			        if (editelectric.isSelected()) 	{	electricch = 1;	}
+			        if (editampli.isSelected()) 	{	amplifierch = 1;}
+			        if (editmic.isSelected()) 		{	micch = 1;		}
+			        if (editstand.isSelected()) 	{	musicstandch = 1;}
+			        if (editheadphone.isSelected()) {	headphonech = 1;}
+			        if (editmicstand.isSelected()) 	{	micstandch = 1;	}
+                }	else{
+	                if (editdrums.isSelected()) {
+	                    updateEquipmentAvailability(connection, "drums", 1, status);
+	                    drumsch = 1;
+	                }
+	                if (editflute.isSelected()) {
+	                    updateEquipmentAvailability(connection, "flute", 1, status);
+	                    flutech = 1;
+	                }
+					if (editpiano.isSelected()) {
+	            		updateEquipmentAvailability(connection, "piano", 1, status);
+	            		pianoch = 1;
+	            	}
+			        if (editacoustic.isSelected()) {
+			           	updateEquipmentAvailability(connection, "acoustic guitar", 1, status);
+			            acousticch = 1;
+			        }
+			        if (editelectric.isSelected()) {
+			            updateEquipmentAvailability(connection, "electric guitar", 1, status);
+			        	electricch = 1;
+			        }
+			        if (editampli.isSelected()) {
+			            updateEquipmentAvailability(connection, "amplifier", 1, status);
+			            amplifierch = 1;
+			        }
+			        if (editmic.isSelected()) {
+			            updateEquipmentAvailability(connection, "mic", 1, status);
+			            micch = 1;
+			        }
+			        if (editstand.isSelected()) {
+			            updateEquipmentAvailability(connection, "music stand", 1, status);
+			            musicstandch = 1;
+			        }
+			        if (editheadphone.isSelected()) {
+			            updateEquipmentAvailability(connection, "headphone", 1, status);
+			            headphonech = 1;
+			        }
+			        if (editmicstand.isSelected()) {
+			            updateEquipmentAvailability(connection, "mic stand", 1, status);
+			            micstandch = 1;
+			        }
                 }
+
+                String sqlUpdate = "UPDATE reservation SET fullname=?, address=?, contactnumber=?, typeofroom=?, datereserve=?, starttime=?, endtime=?, status=?, pax=?, additionalpax=?, addontotal=?, downpayment=?, total=?, grandtotal=?, drums=?, flute=?, piano=?, acoustic=?, electric=?, amplifier=?, microphone=?, musicstand=?, headphone=?,micstand=? WHERE id=?";
+
+                try (PreparedStatement preparedStatement = connection.prepareStatement(sqlUpdate)) {
+                    preparedStatement.setString(1, fullname);
+                    preparedStatement.setString(2, address);
+                    preparedStatement.setString(3, contactnum);
+                    preparedStatement.setString(4, roomtype);
+                    preparedStatement.setDate(5, java.sql.Date.valueOf(datereservation));
+                    LocalTime localStartTime = LocalTime.parse(starttime, DateTimeFormatter.ofPattern("h:mm a"));
+                    LocalTime localEndTime = LocalTime.parse(endtime, DateTimeFormatter.ofPattern("h:mm a"));
+                    preparedStatement.setTime(6, java.sql.Time.valueOf(localStartTime));
+                    preparedStatement.setTime(7, java.sql.Time.valueOf(localEndTime));
+                    preparedStatement.setString(8, status);
+                    preparedStatement.setInt(9, pax);
+                    preparedStatement.setInt(10, addpax);
+                    preparedStatement.setInt(11, addontotal);
+                    preparedStatement.setInt(12, downpayment);
+                    preparedStatement.setInt(13, total);
+                    preparedStatement.setInt(14, grandtotal);
+                    preparedStatement.setInt(15, drumsch);
+                    preparedStatement.setInt(16, flutech);
+                    preparedStatement.setInt(17, pianoch);
+                    preparedStatement.setInt(18, acousticch);
+                    preparedStatement.setInt(19, electricch);
+                    preparedStatement.setInt(20, amplifierch);
+                    preparedStatement.setInt(21, micch);
+                    preparedStatement.setInt(22, musicstandch);
+                    preparedStatement.setInt(23, headphonech);
+                    preparedStatement.setInt(24, micstandch);
+                    preparedStatement.setInt(25, getid);
+
+                    int rowsAffected = preparedStatement.executeUpdate();
+                    System.out.println("Rows affected: " + rowsAffected);
+
+                    connection.commit();
+                    JOptionPane.showMessageDialog(null, "Reservation Updated Successfully!");
+                } catch (SQLException ex) {
+                    if (connection != null) {
+                        connection.rollback();
+                    }
+                    ex.printStackTrace();
+                    JOptionPane.showMessageDialog(null, "Error updating reservation. Please check your input.");
+                }
+            } catch (Exception ex) {
                 ex.printStackTrace();
-                JOptionPane.showMessageDialog(null, "Error updating reservation. Please check your input.");
+                JOptionPane.showMessageDialog(null, "An error occurred. Please check your input.");
             }
-        } catch (Exception ex) {
-            ex.printStackTrace();
-            JOptionPane.showMessageDialog(null, "An error occurred. Please check your input.");
+        } else {
+            JOptionPane.showMessageDialog(null, "Edit reservation canceled.", "Canceled", JOptionPane.INFORMATION_MESSAGE);
         }
     }
 });
@@ -670,6 +727,291 @@ public class mreditreservation implements designs {
         editreservation.setLayout(null);
         editreservation.setVisible(true);
 
-
 	}
+public int getEquipmentRate(String equipmentName) {
+    int rate = 0;
+
+    try (Connection connection = DriverManager.getConnection(url, usernamedb, passworddb)) {
+        String query = "SELECT rate FROM equipment WHERE LOWER(equipmentname) = LOWER(?)";
+
+        try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            preparedStatement.setString(1, equipmentName.toLowerCase());
+
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                if (resultSet.next()) {
+                    rate = resultSet.getInt("rate");
+                } else {
+                    // Equipment not found, display a JOptionPane message
+                    JOptionPane.showMessageDialog(null, "Equipment not found: " + equipmentName,
+                            "Equipment Not Found", JOptionPane.WARNING_MESSAGE);
+					switch (equipmentName) {
+                        case "drums":
+                            editdrums.setSelected(false);
+                            break;
+                        case "flute":
+                            editflute.setSelected(false);
+                            break;
+                        case "piano":
+                            editpiano.setSelected(false);
+                            break;
+                        case "acoustic guitar":
+                            editacoustic.setSelected(false);
+                            break;
+                        case "electric guitar":
+                            editelectric.setSelected(false);
+                            break;
+                        case "amplifier":
+                            editampli.setSelected(false);
+                            break;
+                        case "mic":
+                            editmic.setSelected(false);
+                            break;
+                        case "music stand":
+                            editstand.setSelected(false);
+                            break;
+                        case "headphone":
+                            editheadphone.setSelected(false);
+                            break;
+                        case "mic stand":
+                            editmicstand.setSelected(false);
+                            break;
+					}
+
+                }
+            }
+        }
+
+    } catch (SQLException e) {
+        e.printStackTrace(); // Handle the exception appropriately in your application
+    }
+
+    return rate;
+}
+
+private void updateEquipmentAvailability(Connection connection, String equipmentName, int changeAmount, String status) throws SQLException {
+    String query = "SELECT noofavailable, noofborrow FROM equipment WHERE LOWER(equipmentname) = LOWER(?)";
+
+    try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+        preparedStatement.setString(1, equipmentName.toLowerCase());
+
+        try (ResultSet resultSet = preparedStatement.executeQuery()) {
+            if (resultSet.next()) {
+                int noOfAvailable = resultSet.getInt("noofavailable");
+                int borrowed = resultSet.getInt("noofborrow");
+
+
+                // Update availability based on the status
+                if ("on-going".equalsIgnoreCase(status)) {
+                    noOfAvailable -= changeAmount;
+                    borrowed += changeAmount;
+                } else if ("done".equalsIgnoreCase(status)) {
+                    noOfAvailable += changeAmount;
+                    borrowed -= changeAmount;
+                }
+
+                // Update the equipment table
+                String updateQuery = "UPDATE equipment SET noofavailable = ?, noofborrow = ? WHERE LOWER(equipmentname) = LOWER(?)";
+
+                try (PreparedStatement updateStatement = connection.prepareStatement(updateQuery)) {
+                    updateStatement.setInt(1, noOfAvailable);
+                    updateStatement.setInt(2, borrowed);
+                    updateStatement.setString(3, equipmentName.toLowerCase());
+                    updateStatement.executeUpdate();
+                }
+            }
+        }
+    }
+}
+public void EquipmentAvailability(String equipmentName, String datereservation, String start, String end) throws SQLException {
+    // Assuming you have an 'equipment' table with columns 'equipmentname', 'noofavailable', and 'borrowed'
+    int drumsres = 0;
+    int fluteres = 0;
+    int pianores = 0;
+	int acousticres = 0;
+	int electricres = 0;
+	int amplifierres = 0;
+	int microphoneres = 0;
+	int musicstandres = 0;
+	int headphoneres = 0;
+	int micstandres = 0;
+	System.out.print(datereservation);
+    try (Connection connection = DriverManager.getConnection(url, usernamedb, passworddb)) {
+        String query = "SELECT equipmentname, quantity FROM equipment";
+        int totalquantity = 0;
+		System.out.println(start);
+		System.out.println(end);
+		System.out.println(datereservation);
+        try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                if (resultSet.next()) {
+                    int drumsquantity = resultSet.getInt("quantity");
+                    int flutequantity = resultSet.getInt("quantity");
+                    int pianoquantity = resultSet.getInt("quantity");
+                    int acousticquantity = resultSet.getInt("quantity");
+                    int electricquantity = resultSet.getInt("quantity");
+                    int amplifierquantity = resultSet.getInt("quantity");
+                    int microphonequantity = resultSet.getInt("quantity");
+                    int musicstandquantity = resultSet.getInt("quantity");
+                    int headphonequantity = resultSet.getInt("quantity");
+                    int micstandquantity = resultSet.getInt("quantity");
+
+                     String reservationQuery = "SELECT drums, flute, piano, acoustic, electric, amplifier, microphone, musicstand, headphone, micstand FROM reservation WHERE datereserve = ? AND starttime >= ? AND endtime <= ?";
+                    try (PreparedStatement reservationStatement = connection.prepareStatement(reservationQuery)) {
+                        reservationStatement.setString(1, datereservation);
+                        reservationStatement.setString(2, start);
+                        reservationStatement.setString(3, end);
+
+						int totaldrums = 0;
+						int totalflute = 0;
+						int totalpiano = 0;
+						int totalacoustic = 0;
+						int totalelectric = 0;
+						int totalamplifier = 0;
+						int totalmic = 0;
+						int totalmusicstand = 0;
+						int totalheadphone = 0;
+						int totalmicstand = 0;
+                        try (ResultSet reservationResultSet = reservationStatement.executeQuery()) {
+                            while (reservationResultSet.next()) {
+                                drumsres = reservationResultSet.getInt("drums");
+                                fluteres = reservationResultSet.getInt("flute");
+                                 pianores = reservationResultSet.getInt("piano");
+                                 acousticres = reservationResultSet.getInt("acoustic");
+                                 electricres = reservationResultSet.getInt("electric");
+                                 amplifierres = reservationResultSet.getInt("amplifier");
+                                 microphoneres = reservationResultSet.getInt("microphone");
+                                 musicstandres = reservationResultSet.getInt("musicstand");
+                                 headphoneres = reservationResultSet.getInt("headphone");
+                                 micstandres = reservationResultSet.getInt("micstand");
+
+								totaldrums += drumsres;
+								totalflute += fluteres;
+								totalpiano += pianores;
+								totalacoustic += acousticres;
+								totalelectric += electricres;
+								totalamplifier += amplifierres;
+								totalmic += microphoneres;
+								totalmusicstand += musicstandres;
+								totalheadphone += headphoneres;
+								totalmicstand += micstandres;
+
+								System.out.print(totaldrums);
+                            }
+                                switch (equipmentName) {
+                                    case "drums":
+                                        if (totaldrums > 0) {
+                                            drumsquantity -= totaldrums;
+                                            System.out.print(drumsquantity);
+                                            if (drumsquantity <= 0) {
+                                                JOptionPane.showMessageDialog(null, "Equipment is fully booked " + equipmentName,
+                                                        "Equipment Not Available", JOptionPane.WARNING_MESSAGE);
+                                                editdrums.setSelected(false);
+                                            }
+                                        }
+                                        break;
+                                    case "flute":
+                                        if (totalflute > 0) {
+                                            flutequantity -= totalflute;
+                                            if (flutequantity <= 0) {
+                                                JOptionPane.showMessageDialog(null, "Equipment is fully booked " + equipmentName,
+                                                        "Equipment Not Available", JOptionPane.WARNING_MESSAGE);
+                                                editflute.setSelected(false);
+                                            }
+                                        }
+                                        break;
+                                    case "piano":
+                                        if (totalpiano > 0) {
+                                            pianoquantity -= totalpiano;
+                                            if (pianoquantity <= 0) {
+                                                JOptionPane.showMessageDialog(null, "Equipment is fully booked " + equipmentName,
+                                                        "Equipment Not Available", JOptionPane.WARNING_MESSAGE);
+                                                editpiano.setSelected(false);
+                                            }
+                                        }
+                                        break;
+                                    case "acoustic":
+                                        if (totalacoustic > 0) {
+                                            acousticquantity -= totalacoustic;
+                                            if (acousticquantity <= 0) {
+                                                JOptionPane.showMessageDialog(null, "Equipment is fully booked " + equipmentName,
+                                                        "Equipment Not Available", JOptionPane.WARNING_MESSAGE);
+                                                editacoustic.setSelected(false);
+                                            }
+                                        }
+                                        break;
+                                    case "electric":
+                                        if (totalelectric > 0) {
+                                            electricquantity -= totalelectric;
+                                            if (electricquantity <= 0) {
+                                                JOptionPane.showMessageDialog(null, "Equipment is fully booked " + equipmentName,
+                                                        "Equipment Not Available", JOptionPane.WARNING_MESSAGE);
+                                                editelectric.setSelected(false);
+                                            }
+                                        }
+                                        break;
+                                    case "amplifier":
+                                        if (totalamplifier > 0) {
+                                            amplifierquantity -= totalamplifier;
+                                            if (amplifierquantity <= 0) {
+                                                JOptionPane.showMessageDialog(null, "Equipment is fully booked " + equipmentName,
+                                                        "Equipment Not Available", JOptionPane.WARNING_MESSAGE);
+                                                editampli.setSelected(false);
+                                            }
+                                        }
+                                        break;
+                                    case "microphone":
+                                        if (totalmic > 0) {
+                                            microphonequantity -= totalmic;
+                                            if (microphonequantity <= 0) {
+                                                JOptionPane.showMessageDialog(null, "Equipment is fully booked " + equipmentName,
+                                                        "Equipment Not Available", JOptionPane.WARNING_MESSAGE);
+                                                editmic.setSelected(false);
+                                            }
+                                        }
+                                        break;
+                                    case "musicstand":
+                                        if (totalmusicstand > 0) {
+                                            musicstandquantity -= totalmusicstand;
+                                            if (musicstandquantity <= 0) {
+                                                JOptionPane.showMessageDialog(null, "Equipment is fully booked " + equipmentName,
+                                                        "Equipment Not Available", JOptionPane.WARNING_MESSAGE);
+                                                editstand.setSelected(false);
+                                            }
+                                        }
+                                        break;
+                                    case "headphone":
+                                        if (totalheadphone > 0) {
+                                            headphonequantity -= totalheadphone;
+                                            if (headphonequantity <= 0) {
+                                                JOptionPane.showMessageDialog(null, "Equipment is fully booked " + equipmentName,
+                                                        "Equipment Not Available", JOptionPane.WARNING_MESSAGE);
+                                                editheadphone.setSelected(false);
+                                            }
+                                        }
+                                        break;
+                                    case "micstand":
+                                        if (totalmicstand > 0) {
+                                            micstandquantity -= totalmicstand;
+                                            if (micstandquantity <= 0) {
+                                                JOptionPane.showMessageDialog(null, "Equipment is fully booked " + equipmentName,
+                                                        "Equipment Not Available", JOptionPane.WARNING_MESSAGE);
+                                                editmicstand.setSelected(false);
+                                            }
+                                        }
+                                        break;
+                                }
+
+                        }
+                    }
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            // Handle SQLException appropriately
+        }
+    }
+}
+
+
+
 }

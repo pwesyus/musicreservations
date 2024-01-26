@@ -48,6 +48,14 @@
 				<path>pictures</path>
 			</folderitem>
 			<fileitem>
+				<path>src\csaddreservation.java</path>
+				<folder>src</folder>
+			</fileitem>
+			<fileitem>
+				<path>src\csdashboard.java</path>
+				<folder>src</folder>
+			</fileitem>
+			<fileitem>
 				<path>src\designs.java</path>
 				<folder>src</folder>
 			</fileitem>
@@ -84,6 +92,10 @@
 				<folder>src</folder>
 			</fileitem>
 			<fileitem>
+				<path>src\mrforapproved.java</path>
+				<folder>src</folder>
+			</fileitem>
+			<fileitem>
 				<path>src\mrreservationtbl.java</path>
 				<folder>src</folder>
 			</fileitem>
@@ -101,6 +113,10 @@
 			</fileitem>
 			<fileitem>
 				<path>lib\jcalendar-1.4.jar</path>
+				<folder>lib</folder>
+			</fileitem>
+			<fileitem>
+				<path>lib\LGoodDatePicker-11.2.1.jar</path>
 				<folder>lib</folder>
 			</fileitem>
 			<fileitem>

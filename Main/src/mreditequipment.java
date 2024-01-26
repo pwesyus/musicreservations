@@ -166,79 +166,141 @@ public class mreditequipment implements designs {
             System.out.println(e);
         }
 
+        editquantitytf.addKeyListener(new KeyAdapter() {
+            public void keyTyped(KeyEvent e) {
+                char inputChar = e.getKeyChar();
+
+                // Check if the entered character is a digit
+                if (!Character.isDigit(inputChar)) {
+                    e.consume(); // Ignore the input if it's not a digit
+
+                    // Display a JOptionPane to inform the user
+                    JOptionPane.showMessageDialog(null, "Please enter number only.", "Invalid Input", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        });
+       	editratetf.addKeyListener(new KeyAdapter() {
+            public void keyTyped(KeyEvent e) {
+                char inputChar = e.getKeyChar();
+
+                // Check if the entered character is a digit
+                if (!Character.isDigit(inputChar)) {
+                    e.consume(); // Ignore the input if it's not a digit
+
+                    // Display a JOptionPane to inform the user
+                    JOptionPane.showMessageDialog(null, "Please enter number only.", "Invalid Input", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+       	});
+
 // Save button action listener
-		editsaveequip.addActionListener(new ActionListener() {
-		    public void actionPerformed(ActionEvent e) {
-		        try {
-		        	if (editequipnametf.getText().isEmpty() || editquantitytf.getText().isEmpty() || editratetf.getText().isEmpty()) {
-                	JOptionPane.showMessageDialog(null, "Please fill in all the required fields.", "Error", JOptionPane.ERROR_MESSAGE);
-                	editequipnametf.setText("");
-		            editquantitytf.setText("");
-		            editratetf.setText("");
-		            imageLabel.setIcon(null);
-                	return; // Stop further processing if any field is empty
-           			}
+editsaveequip.addActionListener(new ActionListener() {
+    public void actionPerformed(ActionEvent e) {
+    	        int result = JOptionPane.showConfirmDialog(null,"Do you want to update this equipment?","Confirm Update",JOptionPane.YES_NO_OPTION);
 
-           		Class.forName("com.mysql.cj.jdbc.Driver");
-	            Connection connection = DriverManager.getConnection(url, usernamedb, passworddb);
+        if (result == JOptionPane.YES_OPTION) {
+        try {
+            if (editequipnametf.getText().isEmpty() || editquantitytf.getText().isEmpty() || editratetf.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(null, "Please fill in all the required fields.", "Error", JOptionPane.ERROR_MESSAGE);
+                editequipnametf.setText("");
+                editquantitytf.setText("");
+                editratetf.setText("");
+                imageLabel.setIcon(null);
+                return; // Stop further processing if any field is empty
+            }
 
-	            // Get data from UI components
-	            String equipmentname = editequipnametf.getText();
-	            int quantity = Integer.parseInt(editquantitytf.getText());
-	            int rate = Integer.parseInt(editratetf.getText());
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            Connection connection = DriverManager.getConnection(url, usernamedb, passworddb);
 
-	            // Use the global variable selectedFile
-	            byte[] imageequip = null;
+            // Get data from UI components
+            String equipmentname = editequipnametf.getText();
+            int quantity = Integer.parseInt(editquantitytf.getText());
+            int rate = Integer.parseInt(editratetf.getText());
 
-	            if (selectedFile != null) {
-	                // If a new image is selected, update the image bytes
-	                imageequip = getImageBytes(selectedFile);
-	            }
+            // Use the global variable selectedFile
+            byte[] imageequip = null;
 
-	            // Prepare SQL statement for updating data in the database
-	            String updateQuery = "UPDATE equipment SET equipmentname=?, quantity=?, rate=?, image=? WHERE id=?";
-	            try (PreparedStatement updateStatement = connection.prepareStatement(updateQuery)) {
-	                // Bind parameters
-	                updateStatement.setString(1, equipmentname);
-	                updateStatement.setInt(2, quantity);
-	                updateStatement.setInt(3, rate);
+            if (selectedFile != null) {
+                // If a new image is selected, update the image bytes
+                imageequip = getImageBytes(selectedFile);
+            }
 
-	                if (imageequip != null) {
-	                    // If a new image is selected, update the image column
-	                    updateStatement.setBytes(4, imageequip);
-	                } else {
-	                    // If no new image is selected, use the existing image column
-	                    updateStatement.setBytes(4, existingImageBytes);
-	                }
+            // Prepare SQL statement for selecting existing data
+            String selectQuery = "SELECT quantity, image FROM equipment WHERE id = ?";
+            int oldQuantity = 0;
+            try (PreparedStatement selectStatement = connection.prepareStatement(selectQuery)) {
+                selectStatement.setInt(1, getid);
+                ResultSet resultSet = selectStatement.executeQuery();
 
-	                updateStatement.setInt(5, getid);
+                if (resultSet.next()) {
+                    // Get the existing quantity and image bytes
+                    oldQuantity = resultSet.getInt("quantity");
+                    existingImageBytes = resultSet.getBytes("image");
+                }
+            }
 
-	                // Execute SQL statement
-	                int rowsAffected = updateStatement.executeUpdate();
+            // Prepare SQL statement for updating data in the database
+            String updateQuery = "UPDATE equipment SET equipmentname=?, quantity=?, rate=?, image=? WHERE id=?";
+            try (PreparedStatement updateStatement = connection.prepareStatement(updateQuery)) {
+                // Bind parameters
+                updateStatement.setString(1, equipmentname);
+                updateStatement.setInt(2, quantity);
+                updateStatement.setInt(3, rate);
 
-	                // Show message dialog based on success or failure
-	                if (rowsAffected > 0) {
-	                    JOptionPane.showMessageDialog(null, "Equipment updated successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
-	                } else {
-	                    JOptionPane.showMessageDialog(null, "Failed to update equipment.", "Error", JOptionPane.ERROR_MESSAGE);
-	                }
-	            }
+                if (imageequip != null) {
+                    // If a new image is selected, update the image column
+                    updateStatement.setBytes(4, imageequip);
+                } else {
+                    // If no new image is selected, use the existing image column
+                    updateStatement.setBytes(4, existingImageBytes);
+                }
 
-	            // Close the database connection
-	            connection.close();
+                updateStatement.setInt(5, getid);
 
-	            // Clear text fields and image preview after updating
-	            editequipnametf.setText("");
-	            editquantitytf.setText("");
-	            editratetf.setText("");
-	            imageLabel.setIcon(null);
+                // Execute SQL statement
+                int rowsAffected = updateStatement.executeUpdate();
 
-	        } catch (Exception eeq) {
-	            eeq.printStackTrace();
-	            JOptionPane.showMessageDialog(editequipmentf, "An error occurred: " + eeq.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-	        }
-	    }
-	});
+                // Update noofavailable by adding the difference between the new and old quantity
+                String updateAvailabilityQuery = "UPDATE equipment SET noofavailable = noofavailable + ? - ? WHERE id = ?";
+                try (PreparedStatement updateAvailabilityStatement = connection.prepareStatement(updateAvailabilityQuery)) {
+                    updateAvailabilityStatement.setInt(1, quantity); // New quantity
+                    updateAvailabilityStatement.setInt(2, oldQuantity); // Old quantity
+                    updateAvailabilityStatement.setInt(3, getid);
+                    updateAvailabilityStatement.executeUpdate();
+                }
+
+                // Show message dialog based on success or failure
+                if (rowsAffected > 0) {
+                    JOptionPane.showMessageDialog(null, "Equipment updated successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
+                } else {
+                    JOptionPane.showMessageDialog(null, "Failed to update equipment.", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+
+            // Close the database connection
+            connection.close();
+
+            // Clear text fields and image preview after updating
+            editequipnametf.setText("");
+            editquantitytf.setText("");
+            editratetf.setText("");
+            imageLabel.setIcon(null);
+
+            } catch (Exception eeq) {
+                eeq.printStackTrace();
+                JOptionPane.showMessageDialog(
+                    editequipmentf,
+                    "An error occurred: " + eeq.getMessage(),
+                    "Error",
+                    JOptionPane.ERROR_MESSAGE
+                );
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Equipment update cancelled.", "Cancelled", JOptionPane.INFORMATION_MESSAGE);
+        }
+    }
+});
+
 	editbackequip.addActionListener(new ActionListener() {
 		    public void actionPerformed(ActionEvent e) {
 		    	editequipmentf.setVisible(false);

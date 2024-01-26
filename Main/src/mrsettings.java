@@ -16,7 +16,6 @@ import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import javax.swing.border.LineBorder;
-import java.sql.PreparedStatement;
 
 
 public class mrsettings implements designs {
@@ -77,64 +76,6 @@ public class mrsettings implements designs {
         settingsSaveBtn.setFont(listbtn);
         settingsSaveBtn.setForeground(Color.WHITE);
         settingsSaveBtn.setBackground(cgreen);
-
-
-
-        settingsSaveBtn.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-
-                String currentPassword = new String(setttingTxtCurrentPassword.getPassword());
-                String newPassword = new String(setttingTxtNewPassword.getPassword());
-                String confirmPassword = new String(setttingTxtConfirmPassword.getPassword());
-
-				try {
-				    // Check if the new password and confirm password match
-				    if (!newPassword.equals(confirmPassword)) {
-				        JOptionPane.showMessageDialog(null, "New and Confirm passwords do not match.", "Password Mismatch", JOptionPane.ERROR_MESSAGE);
-				        return;
-				    }
-					if (currentPassword == null || currentPassword.isEmpty()) {
-					    JOptionPane.showMessageDialog(null, "You need to enter your current password.", "Warning", JOptionPane.ERROR_MESSAGE);
-					    return;
-					}if (newPassword == null || confirmPassword.isEmpty()) {
-					    JOptionPane.showMessageDialog(null, "You need to enter your new/confirm password.", "Warning", JOptionPane.ERROR_MESSAGE);
-					    return;
-					}
-
-				    // Connect to the database
-				    Class.forName("com.mysql.cj.jdbc.Driver");
-				    Connection connection = DriverManager.getConnection(url, usernamedb, passworddb);
-				    Statement statement = connection.createStatement();
-
-				    // Check if the current password is correct for the logged-in user
-				    String checkQuery = "SELECT username, password, access FROM login WHERE username = ? AND password = ?";
-
-				    PreparedStatement checkStatement = connection.prepareStatement(checkQuery);
-				    checkStatement.setString(1, "admin");  // username
-				    checkStatement.setString(2, currentPassword);  // Use currentPassword for checking
-				    ResultSet checkResult = checkStatement.executeQuery();
-
-				    if (checkResult.next()) {
-				        // Update the password for the logged-in user
-				        String updateQuery = "UPDATE login SET password=? WHERE username=?";
-
-				        PreparedStatement updateStatement = connection.prepareStatement(updateQuery);
-				        updateStatement.setString(1, newPassword);
-				        updateStatement.setString(2, "admin"); //username
-				        updateStatement.executeUpdate();
-				        JOptionPane.showMessageDialog(null, "Password updated successfully!", "Password Change", JOptionPane.INFORMATION_MESSAGE);
-				    } else {
-				        JOptionPane.showMessageDialog(null, "Incorrect current password.", "Password Change Failed", JOptionPane.ERROR_MESSAGE);
-				    }
-
-				    // Close the database connection
-				    connection.close();
-				} catch (SQLException | ClassNotFoundException ex) {
-				    ex.printStackTrace();
-				}
-
-			}
-	});
 
         // dashboard buttons
 
@@ -253,6 +194,70 @@ public class mrsettings implements designs {
 
             }
         });
+		settingsSaveBtn.addActionListener(new ActionListener() {
+		    public void actionPerformed(ActionEvent e) {
+		        int result = JOptionPane.showConfirmDialog(null, "Do you really want to change your password?", "Confirm Change Password", JOptionPane.YES_NO_OPTION);
+
+		        if (result == JOptionPane.YES_OPTION) {
+		            String currentPassword = new String(setttingTxtCurrentPassword.getPassword());
+		            String newPassword = new String(setttingTxtNewPassword.getPassword());
+		            String confirmPassword = new String(setttingTxtConfirmPassword.getPassword());
+
+		            try {
+		                // Check if the new password and confirm password match
+		                if (!newPassword.equals(confirmPassword)) {
+		                    JOptionPane.showMessageDialog(null, "New and Confirm passwords do not match.", "Password Mismatch", JOptionPane.ERROR_MESSAGE);
+		                    return;
+		                }
+
+		                if (currentPassword == null || currentPassword.isEmpty()) {
+		                    JOptionPane.showMessageDialog(null, "You need to enter your current password.", "Warning", JOptionPane.ERROR_MESSAGE);
+		                    return;
+		                }
+
+		                if (newPassword == null || newPassword.isEmpty() || confirmPassword == null || confirmPassword.isEmpty()) {
+		                    JOptionPane.showMessageDialog(null, "You need to enter your new/confirm password.", "Warning", JOptionPane.ERROR_MESSAGE);
+		                    return;
+		                }
+
+		                // Connect to the database
+		                Class.forName("com.mysql.cj.jdbc.Driver");
+		                Connection connection = DriverManager.getConnection(url, usernamedb, passworddb);
+
+		                // Check if the current password is correct for the logged-in user
+		                String checkQuery = "SELECT username, password, access FROM login WHERE username = ? AND password = ?";
+
+		                PreparedStatement checkStatement = connection.prepareStatement(checkQuery);
+		                checkStatement.setString(1, "admin"); // username
+		                checkStatement.setString(2, currentPassword); // Use currentPassword for checking
+		                ResultSet checkResult = checkStatement.executeQuery();
+
+		                if (checkResult.next()) {
+		                    // Update the password for the logged-in user
+		                    String updateQuery = "UPDATE login SET password=? WHERE username=?";
+
+		                    PreparedStatement updateStatement = connection.prepareStatement(updateQuery);
+		                    updateStatement.setString(1, newPassword);
+		                    updateStatement.setString(2, "admin"); // username
+		                    updateStatement.executeUpdate();
+		                    JOptionPane.showMessageDialog(null, "Password updated successfully!", "Password Change", JOptionPane.INFORMATION_MESSAGE);
+		                    settingsFrame.setVisible(false);
+			                Login loginf = new Login();
+			        		loginf.logins();
+		                } else {
+		                    JOptionPane.showMessageDialog(null, "Incorrect current password.", "Password Change Failed", JOptionPane.ERROR_MESSAGE);
+		                }
+
+		                // Close the database connection
+		                connection.close();
+		            } catch (SQLException | ClassNotFoundException ex) {
+		                ex.printStackTrace();
+		            }
+		        } else {
+		            JOptionPane.showMessageDialog(null, "Password change cancelled.", "Cancelled", JOptionPane.INFORMATION_MESSAGE);
+		        }
+		    }
+		});
 
 
 

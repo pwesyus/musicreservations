@@ -50,22 +50,22 @@ public class mraddequipment implements designs {
         JLabel subaddequipment = new JLabel("ADD EQUIPMENT");
         subaddequipment.setFont(addequip);
 
-		JLabel equipname = new JLabel("EQUIPMENT NAME");
+		JLabel equipname = new JLabel("EQUIPMENT NAME *");
         equipname.setFont(subtitle);
         JTextField equipnametf = new JTextField();
         equipnametf.setFont(subtitle);
 
-       	JLabel quantity = new JLabel("QUANTITY");
+       	JLabel quantity = new JLabel("QUANTITY *");
         quantity.setFont(subtitle);
         JTextField quantitytf = new JTextField();
         quantitytf.setFont(subtitle);
 
-        JLabel rate = new JLabel("RATE");
+        JLabel rate = new JLabel("RATE *");
         rate.setFont(subtitle);
         JTextField ratetf = new JTextField();
         ratetf.setFont(subtitle);
 
-		JLabel equipimg = new JLabel("EQUIPMENT IMAGE");
+		JLabel equipimg = new JLabel("EQUIPMENT IMAGE *");
         equipimg.setFont(subtitle);
         JButton uploadimg = new JButton("Upload Equipment Image");
         uploadimg.setFont(subtitle);
@@ -104,11 +104,37 @@ public class mraddequipment implements designs {
             }
         });
 
+          quantitytf.addKeyListener(new KeyAdapter() {
+            public void keyTyped(KeyEvent e) {
+                char inputChar = e.getKeyChar();
+
+                // Check if the entered character is a digit
+                if (!Character.isDigit(inputChar)) {
+                    e.consume(); // Ignore the input if it's not a digit
+
+                    // Display a JOptionPane to inform the user
+                    JOptionPane.showMessageDialog(null, "Please enter number only.", "Invalid Input", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        });
+       	ratetf.addKeyListener(new KeyAdapter() {
+            public void keyTyped(KeyEvent e) {
+                char inputChar = e.getKeyChar();
+
+                // Check if the entered character is a digit
+                if (!Character.isDigit(inputChar)) {
+                    e.consume(); // Ignore the input if it's not a digit
+
+                    // Display a JOptionPane to inform the user
+                    JOptionPane.showMessageDialog(null, "Please enter number only.", "Invalid Input", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+       	});
+
 // Save button action listener
 		saveequip.addActionListener(new ActionListener() {
 		    public void actionPerformed(ActionEvent e) {
-		        try {
-		        	if (equipnametf.getText().isEmpty() || quantitytf.getText().isEmpty() || ratetf.getText().isEmpty()) {
+		    	if (equipnametf.getText().isEmpty() || quantitytf.getText().isEmpty() || ratetf.getText().isEmpty()) {
                 	JOptionPane.showMessageDialog(null, "Please fill in all the required fields.", "Error", JOptionPane.ERROR_MESSAGE);
                 	equipnametf.setText("");
 		            quantitytf.setText("");
@@ -116,6 +142,11 @@ public class mraddequipment implements designs {
 		            imageLabel.setIcon(null);
                 	return; // Stop further processing if any field is empty
            			}
+		    	int result = JOptionPane.showConfirmDialog(null,"Do you want to save this equipment?", "Confirm Save", JOptionPane.YES_NO_OPTION);
+
+        if (result == JOptionPane.YES_OPTION) {
+		        try {
+
 
 		            Class.forName("com.mysql.cj.jdbc.Driver");
 		            Connection connection = DriverManager.getConnection(url, usernamedb, passworddb);
@@ -173,11 +204,19 @@ public class mraddequipment implements designs {
 		            ratetf.setText("");
 		            imageLabel.setIcon(null);
 		        } catch (Exception ex) {
-		            ex.printStackTrace();
-		            JOptionPane.showMessageDialog(addequipmentf, "An error occurred: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-		        }
-		    }
-		});
+                ex.printStackTrace();
+                JOptionPane.showMessageDialog(
+                    addequipmentf,
+                    "An error occurred: " + ex.getMessage(),
+                    "Error",
+                    JOptionPane.ERROR_MESSAGE
+                );
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Equipment saved cancelled.", "Cancelled", JOptionPane.INFORMATION_MESSAGE);
+        }
+    }
+});
 
 		backequip.addActionListener(new ActionListener() {
 		    public void actionPerformed(ActionEvent e) {

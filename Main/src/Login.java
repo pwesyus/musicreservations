@@ -52,7 +52,6 @@ public class Login implements designs {
 
         JLabel password = new JLabel("PASSWORD");
         password.setFont(userpass);
-
         passwordtf.setFont(subtitle);
 
         showPasswordCheckbox.setFont(subtitle);
@@ -121,7 +120,7 @@ public class Login implements designs {
         usernametf.setBounds(485, 215, 310, 30);
         password.setBounds(485, 275, 200, 50);
         passwordtf.setBounds(485, 320, 310, 30);
-        loginbtn.setBounds(510, 390, 250, 50);
+        loginbtn.setBounds(510, 410, 250, 50);
         loginbox1.setBounds(450, 145, 380, 350);
         loginbox.setBounds(450, 45, 380, 450);
         showPasswordCheckbox.setBounds(485, 355, 200, 30);
@@ -132,39 +131,38 @@ public class Login implements designs {
         login.setVisible(true);
     }
 
-    public void checkunpw(String usernameinput, String passwordinput) {
-        try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            Connection connection = DriverManager.getConnection(url, usernamedb, passworddb);
-            Statement statement = connection.createStatement();
+    public void checkunpw(String usernameinput, String passwordinput){
+		try {
+	            Class.forName("com.mysql.cj.jdbc.Driver");
+	            Connection connection = DriverManager.getConnection(url, usernamedb, passworddb);
+	            Statement statement = connection.createStatement();
 
-            // Query to retrieve username, password, and access from the database based on
-            // input
-            String query = "SELECT username, password, access FROM login WHERE username = '" + usernameinput
-                    + "' AND password = '" + passwordinput + "'";
-            ResultSet resultSet = statement.executeQuery(query);
+	            // Query to retrieve username, password, and access from the database based on input
+	            String query = "SELECT username, password, access FROM login WHERE username = '" + usernameinput + "' AND password = '" + passwordinput + "'";
+	            ResultSet resultSet = statement.executeQuery(query);
 
-            if (resultSet.next()) {
-                String dbAccess = resultSet.getString("access");
+	            if (resultSet.next()) {
+	                String dbAccess = resultSet.getString("access");
 
-                if ("admin".equals(dbAccess)) {
-                    JOptionPane.showMessageDialog(null, "WELCOME TO MUSIC ROOM RESERVATION", "Login successfully!",
-                            JOptionPane.INFORMATION_MESSAGE);
-                    mrdashboard dash = new mrdashboard();
-                    dash.dashboard();
-                    login.setVisible(false);
-                } else if ("client".equals(dbAccess)) {
-                    login.setVisible(false);
-                }
+	                if ("admin".equals(dbAccess)) {
+	                	JOptionPane.showMessageDialog(null, "WELCOME TO MUSIC ROOM RESERVATION", "Login successfully!", JOptionPane.INFORMATION_MESSAGE);
+	                	mrdashboard dash = new mrdashboard();
+        				dash.dashboard();
+	                    login.setVisible(false);
+	                } else if ("client".equals(dbAccess)) {
+	                	JOptionPane.showMessageDialog(null, "WELCOME TO MUSIC ROOM RESERVATION", "Login successfully!", JOptionPane.INFORMATION_MESSAGE);
+	                    login.setVisible(false);
+	                    csdashboard csdash = new csdashboard();
+        				csdash.clientdashboard();
+	                }
 
-            } else {
-                JOptionPane.showMessageDialog(null, "Invalid username or password", "Invalid credentials",
-                        JOptionPane.ERROR_MESSAGE);
-            }
+	            } else {
+	                JOptionPane.showMessageDialog(null, "Invalid username or password", "Invalid credentials", JOptionPane.ERROR_MESSAGE);
+	            }
 
-            connection.close();
-        } catch (Exception ex) {
-            System.out.println(ex);
-        }
-    }
+	            connection.close();
+	        } catch (Exception ex) {
+	            System.out.println(ex);
+	        }
+	    }
 }

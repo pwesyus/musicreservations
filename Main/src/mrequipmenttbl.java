@@ -71,7 +71,7 @@ public class mrequipmenttbl implements designs {
 		Font equipmentheaderFont = subtitle;
 		equipmenttableHeader.setFont(equipmentheaderFont);
 
-		equipmenttbl.setRowHeight(80);
+		equipmenttbl.setRowHeight(100);
 		//set the text in center and font
 		DefaultTableCellRenderer equipmentcenterRenderer = new DefaultTableCellRenderer();
 		equipmentcenterRenderer.setFont(subtitle);
@@ -220,21 +220,30 @@ public class mrequipmenttbl implements designs {
 
         });
         archiveequipment.addActionListener(new ActionListener() {
-			    public void actionPerformed(ActionEvent e) {
-			        selectedRow = equipmenttbl.getSelectedRow();
+	    public void actionPerformed(ActionEvent e) {
+	        selectedRow = equipmenttbl.getSelectedRow();
 
-			        if (selectedRow != -1) {
-			            String getidmodel = equipmentmodel.getValueAt(selectedRow, 0).toString();
-			            getid = Integer.parseInt(getidmodel);
-			            equipment.setVisible(false);
-			            mreditequipment editequip = new mreditequipment();
-			            editequip.archiveequipment(getid);
-			        } else {
-			            JOptionPane.showMessageDialog(null, "Please select a row to edit.", "No Selection", JOptionPane.WARNING_MESSAGE);
-			            equipment.setVisible(true);
-			        }
-			    }
-			});
+	        if (selectedRow != -1) {
+	            String equipmentName = equipmentmodel.getValueAt(selectedRow, 1).toString();
+
+	            // List of equipment names that cannot be archived
+	            String[] restrictedEquipment = {"drums", "flute", "piano", "acoustic guitar", "electric guitar", "amplifier", "mic", "music stand", "headphone", "mic stand"};
+
+	            if (Arrays.asList(restrictedEquipment).contains(equipmentName)) {
+	                JOptionPane.showMessageDialog(null, "Equipment '" + equipmentName + "' cannot be archived.", "Invalid Action", JOptionPane.WARNING_MESSAGE);
+	            } else {
+	                String getidmodel = equipmentmodel.getValueAt(selectedRow, 0).toString();
+	                getid = Integer.parseInt(getidmodel);
+	                equipment.setVisible(false);
+	                mreditequipment editequip = new mreditequipment();
+	                editequip.archiveequipment(getid);
+	            }
+	        } else {
+	            JOptionPane.showMessageDialog(null, "Please select a row to archive.", "No Selection", JOptionPane.WARNING_MESSAGE);
+	            equipment.setVisible(true);
+	        }
+	    }
+	});
 
        equiplogoutbtn.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -269,7 +278,7 @@ public class mrequipmenttbl implements designs {
         equipequipmentsbtn.setBounds(30, 311, 150, 65);
         equipsettingsbtn.setBounds(30, 386, 150, 65);
         equiplogoutbtn.setBounds(30, 461, 150, 65);
-        equipmentsp.setBounds(210, 130, 640, 300);
+        equipmentsp.setBounds(210, 130, 640, 400);
         equipment.setBounds(225, 70, 900, 600);
 
         // add components

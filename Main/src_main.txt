@@ -1,3 +1,6 @@
+C:\Users\Admin\Desktop\MusicReservation\Main\src\csaddreservation.java
+C:\Users\Admin\Desktop\MusicReservation\Main\src\csdashboard.java
+C:\Users\Admin\Desktop\MusicReservation\Main\src\csterms.java
 C:\Users\Admin\Desktop\MusicReservation\Main\src\designs.java
 C:\Users\Admin\Desktop\MusicReservation\Main\src\Login.java
 C:\Users\Admin\Desktop\MusicReservation\Main\src\Main.java

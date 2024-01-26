@@ -120,14 +120,23 @@ public class mrreservationtbl implements designs {
 			        if (selectedRow != -1) {
 			            String getidmodel = reservemodel.getValueAt(selectedRow, 0).toString();
 			            getid = Integer.parseInt(getidmodel);
-			            mreditreservation editreserve = new mreditreservation();
-			            editreserve.editreservations(getid);
+
+			            // Check if the status is "Done" (case-insensitive and trimmed)
+			            String status = reservemodel.getValueAt(selectedRow, 5).toString().trim();
+			            if ("Done".equalsIgnoreCase(status)) {
+			                JOptionPane.showMessageDialog(null, "Reservation with status 'Done' cannot be edited.", "Invalid Action", JOptionPane.WARNING_MESSAGE);
+			                reservation.setVisible(true);
+			            } else {
+			                mreditreservation editreserve = new mreditreservation();
+			                editreserve.editreservations(getid);
+			            }
 			        } else {
 			            JOptionPane.showMessageDialog(null, "Please select a row to edit.", "No Selection", JOptionPane.WARNING_MESSAGE);
 			            reservation.setVisible(true);
 			        }
 			    }
 			});
+
 			view.addActionListener(new ActionListener() {
 			    public void actionPerformed(ActionEvent e) {
 			        reservation.setVisible(false);
@@ -139,7 +148,7 @@ public class mrreservationtbl implements designs {
 			            mrviewreservation viewreserve = new mrviewreservation();
 			            viewreserve.viewreservations(getid);
 			        } else {
-			            JOptionPane.showMessageDialog(null, "Please select a row to edit.", "No Selection", JOptionPane.WARNING_MESSAGE);
+			            JOptionPane.showMessageDialog(null, "Please select a row to view.", "No Selection", JOptionPane.WARNING_MESSAGE);
 			            reservation.setVisible(true);
 			        }
 			    }
@@ -154,6 +163,7 @@ public class mrreservationtbl implements designs {
 			            getid = Integer.parseInt(getidmodel);
 			            mrviewreservation viewreserve = new mrviewreservation();
 			            viewreserve.archivereservation(getid);
+			            reservation.setVisible(false);
 			        } else {
 			            JOptionPane.showMessageDialog(null, "Please select a row to edit.", "No Selection", JOptionPane.WARNING_MESSAGE);
 			            reservation.setVisible(true);
@@ -276,34 +286,39 @@ public class mrreservationtbl implements designs {
 	    }
 
 	    public void refreshreservationtbl() {
-    try {
-        Class.forName("com.mysql.cj.jdbc.Driver");
-        Connection connection = DriverManager.getConnection(url, usernamedb, passworddb);
-        Statement statement = connection.createStatement();
+		 try {
+		    Class.forName("com.mysql.cj.jdbc.Driver");
+		    Connection connection = DriverManager.getConnection(url, usernamedb, passworddb);
+		    Statement statement = connection.createStatement();
 
-        // Updated SQL query to filter by specific status values and order by date
-        String sqlQuery = "SELECT id, fullname, contactnumber, datereserve, typeofroom, status " +
-                          "FROM reservation " +
-                          "WHERE status IN ('ON-GOING', 'PENDING', 'DONE') " +
-                          "ORDER BY datereserve ASC";
+		    // Updated SQL query to filter by specific status values and order by date, starttime
+		    String sqlQuery = "SELECT id, fullname, contactnumber, datereserve, typeofroom, status " +
+		                      "FROM reservation " +
+		                      "WHERE status IN ('ON-GOING', 'PENDING', 'DONE') " +
+		                      "ORDER BY " +
+		                      "  CASE WHEN status = 'ON-GOING' THEN 1 " +
+		                      "       WHEN status = 'PENDING' THEN 2 " +
+		                      "       WHEN status = 'DONE' THEN 3 " +
+		                      "  END, " +
+		                      "  datereserve ASC, starttime ASC";
 
-        ResultSet rSet = statement.executeQuery(sqlQuery);
+		    ResultSet rSet = statement.executeQuery(sqlQuery);
 
-        while (rSet.next()) {
-            String id = String.valueOf(rSet.getInt(1));
-            String fullname = rSet.getString(2);
-            String contactnumber = rSet.getString(3);
-            String datereserve = String.valueOf(rSet.getDate(4));
-            String room = rSet.getString(5);
-            String status = rSet.getString(6);
-            String add_row[] = {id, fullname, contactnumber, datereserve, room, status};
-            reservemodel.addRow(add_row);
-        }
+		    while (rSet.next()) {
+		        String id = String.valueOf(rSet.getInt(1));
+		        String fullname = rSet.getString(2);
+		        String contactnumber = rSet.getString(3);
+		        String datereserve = String.valueOf(rSet.getDate(4));
+		        String room = rSet.getString(5);
+		        String status = rSet.getString(6);
+		        String add_row[] = {id, fullname, contactnumber, datereserve, room, status};
+		        reservemodel.addRow(add_row);
+		    }
 
-        connection.close();
-    } catch (Exception e) {
-        System.out.println(e);
-    }
-}
+		    connection.close();
+		} catch (Exception e) {
+		    System.out.println(e);
+		}
+		}
 
 }
