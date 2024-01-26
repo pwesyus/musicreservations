@@ -285,7 +285,7 @@ public class mrreservationtbl implements designs {
 
 	    }
 
-	    public void refreshreservationtbl() {
+public void refreshreservationtbl() {
 		 try {
 		    Class.forName("com.mysql.cj.jdbc.Driver");
 		    Connection connection = DriverManager.getConnection(url, usernamedb, passworddb);

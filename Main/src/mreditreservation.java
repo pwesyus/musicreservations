@@ -554,8 +554,8 @@ editreserve.addActionListener(new ActionListener() {
 			            micstandch = 1;
 			        }
                 }
-
-                String sqlUpdate = "UPDATE reservation SET fullname=?, address=?, contactnumber=?, typeofroom=?, datereserve=?, starttime=?, endtime=?, status=?, pax=?, additionalpax=?, addontotal=?, downpayment=?, total=?, grandtotal=?, drums=?, flute=?, piano=?, acoustic=?, electric=?, amplifier=?, microphone=?, musicstand=?, headphone=?,micstand=? WHERE id=?";
+				String users = "admin";
+                String sqlUpdate = "UPDATE reservation SET fullname=?, address=?, contactnumber=?, typeofroom=?, datereserve=?, starttime=?, endtime=?, status=?, pax=?, additionalpax=?, addontotal=?, downpayment=?, total=?, grandtotal=?, drums=?, flute=?, piano=?, acoustic=?, electric=?, amplifier=?, microphone=?, musicstand=?, headphone=?,micstand=?, user=? WHERE id=?";
 
                 try (PreparedStatement preparedStatement = connection.prepareStatement(sqlUpdate)) {
                     preparedStatement.setString(1, fullname);
@@ -584,7 +584,8 @@ editreserve.addActionListener(new ActionListener() {
                     preparedStatement.setInt(22, musicstandch);
                     preparedStatement.setInt(23, headphonech);
                     preparedStatement.setInt(24, micstandch);
-                    preparedStatement.setInt(25, getid);
+                    preparedStatement.setString(25, users);
+                    preparedStatement.setInt(26, getid);
 
                     int rowsAffected = preparedStatement.executeUpdate();
                     System.out.println("Rows affected: " + rowsAffected);

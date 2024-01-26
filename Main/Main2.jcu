@@ -21,22 +21,10 @@
 	</projects>
 	<open_files>
 		<docitem>
-			<path>src\mraddreservation.java</path>
+			<path>src\mrreservationtbl.java</path>
 			<source>true</source>
 			<index>0</index>
-			<active>false</active>
-		</docitem>
-		<docitem>
-			<path>..\..\..\Documents\JCreatorLE\MyProjects\JavaProject\MusicRoom\src\MusicRoom.java</path>
-			<source>true</source>
-			<index>1</index>
 			<active>true</active>
-		</docitem>
-		<docitem>
-			<path>..\..\..\Documents\JCreatorLE\MyProjects\MusicRoom\src\MusicRoom.java</path>
-			<source>true</source>
-			<index>2</index>
-			<active>false</active>
 		</docitem>
 	</open_files>
 </workspace_user>

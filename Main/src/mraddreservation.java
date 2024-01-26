@@ -417,6 +417,7 @@ public class mraddreservation implements designs {
 		            String status = statuscb.getSelectedItem().toString();
 		            int pax = Integer.parseInt(paxtf.getText());
 		            int addpax = Integer.parseInt(addpaxtf.getText());
+
 		            int addontotal = Integer.parseInt(addontotaltf.getText());
 		            int total = Integer.parseInt(totaltf.getText());
 		            int downpayment = Integer.parseInt(downpaymenttf.getText());
@@ -475,7 +476,9 @@ public class mraddreservation implements designs {
 			            	updateEquipmentAvailability(connection, "mic stand", 1, status);
 			            	micstandch = 1;
 			            }
-		                String sql = "INSERT INTO reservation (fullname, address, contactnumber, typeofroom, datereserve, starttime, endtime, status, pax, additionalpax, addontotal, downpayment, grandtotal, total, drums, flute, piano, acoustic, electric, amplifier, microphone, musicstand, headphone, micstand) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+			            String users = "admin";
+
+		                String sql = "INSERT INTO reservation (fullname, address, contactnumber, typeofroom, datereserve, starttime, endtime, status, pax, additionalpax, addontotal, downpayment, grandtotal, total, drums, flute, piano, acoustic, electric, amplifier, microphone, musicstand, headphone, micstand, user) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
 		                try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
 		                    preparedStatement.setString(1, fullname);
@@ -506,6 +509,7 @@ public class mraddreservation implements designs {
 				        preparedStatement.setInt(22, musicstandch);
 				        preparedStatement.setInt(23, headphonech);
 				        preparedStatement.setInt(24, micstandch);
+				        preparedStatement.setString(25, users);
 
 				        preparedStatement.executeUpdate();
 				        JOptionPane.showMessageDialog(null, "Reservation Successfull!");

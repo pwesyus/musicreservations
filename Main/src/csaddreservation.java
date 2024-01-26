@@ -478,6 +478,8 @@ public class csaddreservation implements designs {
 					int headphonech = 0;
 					int micstandch = 0;
 
+					String users = "client";
+
 				try {
 				    Class.forName("com.mysql.cj.jdbc.Driver");
 				    Connection connection = DriverManager.getConnection(url, usernamedb, passworddb);
@@ -492,7 +494,7 @@ public class csaddreservation implements designs {
 			        if (clientheadphone.isSelected()) {	headphonech = 1;}
 			        if (clientmicstand.isSelected()) {	micstandch = 1;	}
 
-				    String sql = "INSERT INTO reservation (fullname, address, contactnumber, typeofroom, datereserve, starttime, endtime, status, pax, additionalpax, addontotal, downpayment, grandtotal, total, drums, flute, piano, acoustic, electric, amplifier, microphone, musicstand, headphone, micstand) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+				    String sql = "INSERT INTO reservation (fullname, address, contactnumber, typeofroom, datereserve, starttime, endtime, status, pax, additionalpax, addontotal, downpayment, grandtotal, total, drums, flute, piano, acoustic, electric, amplifier, microphone, musicstand, headphone, micstand, user) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
 				    try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
 				        preparedStatement.setString(1, fullname);
@@ -523,6 +525,7 @@ public class csaddreservation implements designs {
 				        preparedStatement.setInt(22, musicstandch);
 				        preparedStatement.setInt(23, headphonech);
 				        preparedStatement.setInt(24, micstandch);
+				        preparedStatement.setString(25, users);
 
 				         preparedStatement.executeUpdate();
                             JOptionPane.showMessageDialog(null, "Reservation Successful!");
