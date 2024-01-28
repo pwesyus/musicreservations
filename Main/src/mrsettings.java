@@ -62,11 +62,13 @@ public class mrsettings implements designs {
         JLabel notmatchpw = new JLabel("New & Confirm Password do not match");
         notmatchpw.setFont(subtitle);
         notmatchpw.setBackground(Color.WHITE);
+        notmatchpw.setForeground(cred);
         notmatchpw.setVisible(false);
 
         JLabel matchpw = new JLabel("New & Confirm Password match");
         matchpw.setFont(subtitle);
         matchpw.setBackground(Color.WHITE);
+        matchpw.setForeground(cgreen);
         matchpw.setVisible(false);
 
 
@@ -124,6 +126,7 @@ public class mrsettings implements designs {
 		        } else {
 		            matchpw.setVisible(false);
 		            notmatchpw.setVisible(true);
+
 		        }
 		    }
 		});
@@ -225,7 +228,7 @@ public class mrsettings implements designs {
 		                Connection connection = DriverManager.getConnection(url, usernamedb, passworddb);
 
 		                // Check if the current password is correct for the logged-in user
-		                String checkQuery = "SELECT username, password, access FROM login WHERE username = ? AND password = ?";
+		                String checkQuery = "SELECT username, password, access FROM login WHERE username = ? AND BINARY password = ?";
 
 		                PreparedStatement checkStatement = connection.prepareStatement(checkQuery);
 		                checkStatement.setString(1, "admin"); // username

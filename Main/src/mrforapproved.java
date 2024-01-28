@@ -39,10 +39,11 @@ public class mrforapproved implements designs {
 		forapprovedlist.setFont(list);
 
 		String forapprovedrow[][] = {};
-        String forapprovedcol[] = {"ID", "NAME", "DATE OF RESERVATION", "TYPE OF ROOM", "START TIME", "END TIME", "DOWNPAYMENT", "GRAND TOTAL" };
+        String forapprovedcol[] = {"ID", "NAME", "DATE OF\nRESERVATION", "TYPE OF ROOM", "START TIME", "END TIME", "DOWNPAYMENT", "GRAND TOTAL" };
 		forapprovedmodel = new DefaultTableModel(forapprovedrow, forapprovedcol);
         JTable forapprovedtbl = new JTable(forapprovedmodel);
         JScrollPane forapprovedsp = new JScrollPane(forapprovedtbl);
+
 
         //set the table and header color and font
         JTableHeader forapprovedtableHeader = forapprovedtbl.getTableHeader();
@@ -119,6 +120,10 @@ public class mrforapproved implements designs {
 
 		                        if (rowsAffected > 0) {
 		                            JOptionPane.showMessageDialog(null, "Reservation approved successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
+		                        	forapproved.setVisible(false);
+					                mrforapproved approve = new mrforapproved();
+					        		approve.forapproved();
+
 		                        } else {
 		                            JOptionPane.showMessageDialog(null, "Failed to approve reservation.", "Error", JOptionPane.ERROR_MESSAGE);
 		                        }
@@ -132,6 +137,8 @@ public class mrforapproved implements designs {
 		            } else {
 		                JOptionPane.showMessageDialog(null, "Approval process cancelled.", "Cancelled", JOptionPane.INFORMATION_MESSAGE);
 		            }
+		        }else {
+		            JOptionPane.showMessageDialog(null, "No row selected. Please select a reservation to accept.", "No Row Selected", JOptionPane.WARNING_MESSAGE);
 		        }
 		    }
 		});
@@ -144,9 +151,19 @@ public class mrforapproved implements designs {
 		            String getidmodel = forapprovedmodel.getValueAt(selectedRow, 0).toString();
 		            getid = Integer.parseInt(getidmodel);
 
+		            int result = JOptionPane.showConfirmDialog(
+		                    null,
+		                    "Do you really want to decline this reservation?",
+		                    "Confirm Decline",
+		                    JOptionPane.YES_NO_OPTION
+		            );
+
+		            if (result == JOptionPane.YES_OPTION) {
+
 		            String reason = JOptionPane.showInputDialog(null, "Enter the reason for declining the reservation:");
 
 		            if (reason != null) {
+
 		                // Get data from the reservation table based on getid
 		                try {
 		                    Class.forName("com.mysql.cj.jdbc.Driver");
@@ -226,27 +243,32 @@ public class mrforapproved implements designs {
 		                                        deleteStatement.setInt(1, getid);
 		                                        deleteStatement.executeUpdate();
 
-		                                        JOptionPane.showMessageDialog(null, "Reservation declined successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
-		                                        forapproved.setVisible(false);
-		                                        forapproved.setVisible(true);
-		                                    }
-		                                } else {
-		                                    JOptionPane.showMessageDialog(null, "Failed to decline reservation.", "Error", JOptionPane.ERROR_MESSAGE);
-		                                }
-		                            }
-		                        } else {
-		                            JOptionPane.showMessageDialog(null, "Reservation not found.", "Error", JOptionPane.ERROR_MESSAGE);
-		                        }
-		                    }
-		                } catch (Exception ex) {
-		                    ex.printStackTrace();
-		                    JOptionPane.showMessageDialog(null, "An error occurred: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-		                }
-		            }
-		        }
-		    }
-		});
-
+                                            JOptionPane.showMessageDialog(null, "Reservation declined successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
+                                            forapproved.setVisible(false);
+                                            mrforapproved approve = new mrforapproved();
+                                            approve.forapproved();
+                                        }
+                                    } else {
+                                        JOptionPane.showMessageDialog(null, "Failed to decline reservation.", "Error", JOptionPane.ERROR_MESSAGE);
+                                    }
+                                }
+                            } else {
+                                JOptionPane.showMessageDialog(null, "Reservation not found.", "Error", JOptionPane.ERROR_MESSAGE);
+                            }
+                        }
+                    } catch (Exception ex) {
+                        ex.printStackTrace();
+                        JOptionPane.showMessageDialog(null, "An error occurred: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(null, "Approval process cancelled.", "Cancelled", JOptionPane.INFORMATION_MESSAGE);
+                }
+            }
+        }else {
+            JOptionPane.showMessageDialog(null, "No row selected. Please select a reservation to decline.", "No Row Selected", JOptionPane.WARNING_MESSAGE);
+        }
+    }
+});
 
 		//set the text in center and font
 

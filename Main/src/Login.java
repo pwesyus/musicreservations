@@ -138,7 +138,8 @@ public class Login implements designs {
 	            Statement statement = connection.createStatement();
 
 	            // Query to retrieve username, password, and access from the database based on input
-	            String query = "SELECT username, password, access FROM login WHERE username = '" + usernameinput + "' AND password = '" + passwordinput + "'";
+	            String query = "SELECT username, password, access FROM login WHERE BINARY username = '" + usernameinput + "' AND BINARY password = '" + passwordinput + "'";
+
 	            ResultSet resultSet = statement.executeQuery(query);
 
 	            if (resultSet.next()) {
@@ -151,9 +152,9 @@ public class Login implements designs {
 	                    login.setVisible(false);
 	                } else if ("client".equals(dbAccess)) {
 	                	JOptionPane.showMessageDialog(null, "WELCOME TO MUSIC ROOM RESERVATION", "Login successfully!", JOptionPane.INFORMATION_MESSAGE);
-	                    login.setVisible(false);
 	                    csdashboard csdash = new csdashboard();
         				csdash.clientdashboard();
+        				login.setVisible(false);
 	                }
 
 	            } else {

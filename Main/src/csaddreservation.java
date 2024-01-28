@@ -23,7 +23,7 @@ import com.github.lgooddatepicker.components.DatePicker.*;
 
 
 public class csaddreservation implements designs {
-	    JFrame clientaddreservation = new JFrame("Add Reservation");
+	    JFrame clientaddreservation = new JFrame("Add Client Reservation");
 	    public static String url = "jdbc:mysql://localhost:3306/musicreservation";
 	    public static String usernamedb = "root";
 	    public static String passworddb = "";
@@ -658,7 +658,7 @@ public class csaddreservation implements designs {
 		clientaddonsbox.setBounds(570, 80, 285, 350);
 		clientcompute.setBounds(645, 450, 180, 40);
 		clientreserve.setBounds(645, 500, 180, 40);
-		clientaddreservation.setBounds(100, 50, 900, 600);
+		clientaddreservation.setBounds(225, 70, 900, 600);
 
         // bg
         clientaddreservation.getContentPane().setBackground(Color.WHITE);

@@ -20,11 +20,15 @@ import javax.swing.border.LineBorder;
 
 
 public class csdashboard implements designs {
-	    JFrame clientSide = new JFrame("Client");
+	    JFrame clientSide = new JFrame("Client Dashboard");
 	    public static String url = "jdbc:mysql://localhost:3306/musicreservation";
 	    public static String usernamedb = "root";
 	    public static String passworddb = "";
 		private DefaultTableModel dashboardmodel;
+		public static int selectedRow = -1;
+	    public static int selectedColumn = -1;
+	    public static int getid = 0;
+	    public static String getreason;
 
 	    public void clientdashboard(){
 
@@ -78,6 +82,11 @@ public class csdashboard implements designs {
         clientreservenow.setFont(listbtn);
         clientreservenow.setBackground(cgreen);
         clientreservenow.setForeground(Color.WHITE);
+
+		JButton clientview = new JButton("VIEW");
+        clientview.setFont(listbtn);
+        clientview.setBackground(Color.BLACK);
+        clientview.setForeground(Color.WHITE);
 
         JButton clientlogout = new JButton("LOGOUT");
         clientlogout.setFont(listbtn);
@@ -220,11 +229,33 @@ public class csdashboard implements designs {
         		loginf.logins();
 	    	}
 		});
+		clientview.addActionListener(new ActionListener() {
+	    	public void actionPerformed(ActionEvent e) {
+	    		clientSide.setVisible(false);
+
+	    		selectedRow = dashboardtbl.getSelectedRow();
+
+			        if (selectedRow != -1) {
+			            String getidmodel = dashboardmodel.getValueAt(selectedRow, 0).toString();
+			            getid = Integer.parseInt(getidmodel);
+			            getreason = dashboardmodel.getValueAt(selectedRow, 7).toString();
+
+			            csviewreservation csview = new csviewreservation();
+	    				csview.csviewreservations(getid, getreason);
+			        } else {
+			            JOptionPane.showMessageDialog(null, "Please select a row to view.", "No Selection", JOptionPane.WARNING_MESSAGE);
+			            clientSide.setVisible(true);
+			        }
+
+	    	}
+		});
+
 		clientreservenow.addActionListener(new ActionListener() {
 	    	public void actionPerformed(ActionEvent e) {
 	    		clientSide.setVisible(false);
 	    		csaddreservation csadd = new csaddreservation();
 	    		csadd.clientreservation();
+
 	    	}
 		});
 
@@ -240,9 +271,11 @@ public class csdashboard implements designs {
         clientlblOccupied.setBounds(550, 95, 120, 30);
         clientlblAvailable.setBounds(720, 95, 150, 30);
 		dashboardsp.setBounds(50, 300, 800, 150);
-        clientreservenow.setBounds(450, 470, 200, 50);
-        clientlogout.setBounds(230, 470, 200, 50);
-        clientlblReserve.setBounds(350, 470, 180, 150);
+        clientreservenow.setBounds(600, 470, 200, 50);
+        clientlogout.setBounds(100, 470, 180, 50);
+        clientview.setBounds(350, 470, 180, 50);
+        clientlblReserve.setBounds(450, 470, 180, 150);
+
 
         // ROOMS BUTTONS SET BOUNDS
         clientroom1.setBounds(50, 140, 200, 50);
@@ -253,13 +286,15 @@ public class csdashboard implements designs {
         clientroom6.setBounds(510, 140, 160, 150);
         clientroom7.setBounds(700, 140, 160, 150);
 
-        clientSide.setBounds(100, 50, 900, 600);
+        clientSide.setBounds(225, 70, 900, 600);
 
         clientjpnl.setBounds(50, 140, 650, 300);
 
         // add components
         clientSide.add(clientclienttitletext);
         clientSide.add(clientlogout);
+        clientSide.add(clientview);
+
         clientSide.add(clientroomStatusOverviewLbl);
         clientSide.add(clientoccupied);
         clientSide.add(clientavailable);

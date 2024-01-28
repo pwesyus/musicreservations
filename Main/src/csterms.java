@@ -113,7 +113,7 @@ public class csterms implements designs {
         clienttermsandcondition.add(client9);
 
         //setbounds add reservation
-        clienttermsandcondition.setBounds(100, 50, 900, 600);
+        clienttermsandcondition.setBounds(225, 70, 900, 600);
         clientterms.setBounds(280, 0, 300, 40);
         client11.setBounds(50, 40, 600, 40);
         client12.setBounds(50, 60, 700, 40);
