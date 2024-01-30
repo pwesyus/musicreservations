@@ -17,109 +17,115 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import javax.swing.border.LineBorder;
 
-
 public class mrequipmenttbl implements designs {
-		JFrame equipment = new JFrame("Equipment");
-		public static String url = "jdbc:mysql://localhost:3306/musicreservation";
-	    public static String usernamedb = "root";
-	    public static String passworddb = "";
-	    public static int selectedRow = -1;
-	    public static int selectedColumn = -1;
-	    public static int getid = 0;
-	    public DefaultTableModel equipmentmodel;
+    JFrame equipment = new JFrame("Equipment");
+    public static String url = "jdbc:mysql://localhost:3306/musicreservation";
+    public static String usernamedb = "root";
+    public static String passworddb = "";
+    public static int selectedRow = -1;
+    public static int selectedColumn = -1;
+    public static int getid = 0;
+    public DefaultTableModel equipmentmodel;
 
-	   	public void equipments(){
+    public void equipments() {
 
-		// EQUIPMENT TABLE
+        // EQUIPMENT TABLE
         JLabel equipmenttitletext = new JLabel("MUSIC ROOM RESERVATION");
         equipmenttitletext.setFont(title);
 
-		JLabel listofequipment = new JLabel("LIST OF EQUIPMENTS");
-		listofequipment.setFont(list);
+        JLabel listofequipment = new JLabel("LIST OF EQUIPMENTS");
+        listofequipment.setFont(list);
 
-		//actions buttons
-		JButton addequipment = new JButton("ADD");
-		addequipment.setFont(listbtn);
-		addequipment.setBackground(Color.WHITE);
+        // actions buttons
+        JButton addequipment = new JButton("ADD");
+        addequipment.setFont(listbtn);
+        addequipment.setBackground(Color.WHITE);
 
-		JButton editequipment = new JButton("EDIT");
-		editequipment.setFont(listbtn);
-		editequipment.setBackground(Color.WHITE);
+        JButton editequipment = new JButton("EDIT");
+        editequipment.setFont(listbtn);
+        editequipment.setBackground(Color.WHITE);
 
-		JButton archiveequipment = new JButton("ARCHIVE");
-		archiveequipment.setFont(listbtn);
-		archiveequipment.setBackground(Color.WHITE);
+        JButton archiveequipment = new JButton("ARCHIVE");
+        archiveequipment.setFont(listbtn);
+        archiveequipment.setBackground(Color.WHITE);
 
-		ImageIcon equipmentactiveimg = new ImageIcon("../pictures/equipmentactive.png");
+        ImageIcon equipmentactiveimg = new ImageIcon("../pictures/equipmentactive.png");
         JButton equipmentactivebtn = new JButton(equipmentactiveimg);
 
-
-		        // table
+        // table
         String equipmentrow[][] = {};
-        String equipmentcol[] = { "ID", "EQUIPMENT NAME", "QUANTITY", "RATE", "NUMBER OF AVAILABLE", "NUMBER OF BORROW", "IMAGE" };
+        String equipmentcol[] = { "ID", "EQUIPMENT NAME", "QUANTITY", "RATE", "NO. OF AVAILABLE", "NO. OF BORROW",
+                "IMAGE" };
         equipmentmodel = new DefaultTableModel(equipmentrow, equipmentcol);
         JTable equipmenttbl = new JTable(equipmentmodel);
         JScrollPane equipmentsp = new JScrollPane(equipmenttbl);
         equipmenttbl.setEnabled(true);
 
-        //set the table and header color and font
+        // Set preferred column widths for each column
+        int[] columnWidths = { 60, 370, 190, 130, 350, 305, 220 }; // Adjust the widths as needed
+
+        for (int i = 0; i < equipmentmodel.getColumnCount(); i++) {
+            TableColumn column = equipmenttbl.getColumnModel().getColumn(i);
+            column.setPreferredWidth(columnWidths[i]);
+        }
+
+        // set the table and header color and font
         JTableHeader equipmenttableHeader = equipmenttbl.getTableHeader();
         equipmenttableHeader.setBackground(Color.BLACK);
         equipmenttableHeader.setForeground(Color.WHITE);
         equipmenttbl.setBackground(Color.WHITE);
         equipmenttbl.setForeground(Color.BLACK);
-		Font equipmentheaderFont = subtitle;
-		equipmenttableHeader.setFont(equipmentheaderFont);
+        Font equipmentheaderFont = subtitle;
+        equipmenttableHeader.setFont(equipmentheaderFont);
 
-		equipmenttbl.setRowHeight(100);
-		//set the text in center and font
-		DefaultTableCellRenderer equipmentcenterRenderer = new DefaultTableCellRenderer();
-		equipmentcenterRenderer.setFont(subtitle);
+        equipmenttbl.setRowHeight(100);
+        // set the text in center and font
+        DefaultTableCellRenderer equipmentcenterRenderer = new DefaultTableCellRenderer();
+        equipmentcenterRenderer.setFont(subtitle);
         equipmentcenterRenderer.setHorizontalAlignment(JLabel.CENTER);
         for (int i = 0; i < equipmentmodel.getColumnCount(); i++) {
             equipmenttbl.getColumnModel().getColumn(i).setCellRenderer(equipmentcenterRenderer);
         }
-		//database sql
-		try {
-		    Class.forName("com.mysql.cj.jdbc.Driver");
-		    Connection connection = DriverManager.getConnection(url, usernamedb, passworddb);
-		    Statement statement = connection.createStatement();
-		    ResultSet rSet = statement.executeQuery("select * from equipment");
+        // database sql
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            Connection connection = DriverManager.getConnection(url, usernamedb, passworddb);
+            Statement statement = connection.createStatement();
+            ResultSet rSet = statement.executeQuery("select * from equipment");
 
-			equipmenttbl.getColumnModel().getColumn(6).setCellRenderer(new ImageRenderer());
-		    // Clear existing data from the table model
-		    equipmentmodel.setRowCount(0);
+            equipmenttbl.getColumnModel().getColumn(6).setCellRenderer(new ImageRenderer());
+            // Clear existing data from the table model
+            equipmentmodel.setRowCount(0);
 
-		    while (rSet.next()) {
-		        String id = String.valueOf(rSet.getInt(1));
-		        String equipmentname = rSet.getString(2);
-		        String quantity = String.valueOf(rSet.getInt(3));
-		        String rate = String.valueOf(rSet.getInt(4));
-		        String numofavailable = String.valueOf(rSet.getInt(5));
-		        String numofborrow = String.valueOf(rSet.getInt(6));
+            while (rSet.next()) {
+                String id = String.valueOf(rSet.getInt(1));
+                String equipmentname = rSet.getString(2);
+                String quantity = String.valueOf(rSet.getInt(3));
+                String rate = String.valueOf(rSet.getInt(4));
+                String numofavailable = String.valueOf(rSet.getInt(5));
+                String numofborrow = String.valueOf(rSet.getInt(6));
 
-		        // Get the image bytes from the database
-		         byte[] imageBytes = rSet.getBytes("image");
+                // Get the image bytes from the database
+                byte[] imageBytes = rSet.getBytes("image");
 
-		        if (imageBytes != null && imageBytes.length > 0) {
-                // Convert byte array to ImageIcon
-                ImageIcon imageIcon = new ImageIcon(imageBytes);
+                if (imageBytes != null && imageBytes.length > 0) {
+                    // Convert byte array to ImageIcon
+                    ImageIcon imageIcon = new ImageIcon(imageBytes);
 
-	                // Add row to the table model
-	                Object[] add_rowequip = { id, equipmentname, quantity, rate, numofavailable, numofborrow, imageIcon };
-	                equipmentmodel.addRow(add_rowequip);
-	            } else {
-	                // Handle the case when imageBytes is null or empty
-	                // You can set a placeholder or handle it according to your needs
-	                System.out.println("Image is null or empty for row with ID: " + id);
-	            }
-		    }
-		} catch (Exception e) {
-		    e.printStackTrace();
-		    System.out.println(e);
-		}
-
-
+                    // Add row to the table model
+                    Object[] add_rowequip = { id, equipmentname, quantity, rate, numofavailable, numofborrow,
+                            imageIcon };
+                    equipmentmodel.addRow(add_rowequip);
+                } else {
+                    // Handle the case when imageBytes is null or empty
+                    // You can set a placeholder or handle it according to your needs
+                    System.out.println("Image is null or empty for row with ID: " + id);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println(e);
+        }
 
         // menu buttons
         ImageIcon equipdashboardimg = new ImageIcon("../pictures/dashboard.png");
@@ -141,119 +147,122 @@ public class mrequipmenttbl implements designs {
         JButton equiplogoutbtn = new JButton(equiplogoutimg);
 
         // functions of the buttons
-		equiplogoutbtn.addActionListener(new ActionListener() {
+        equiplogoutbtn.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-            	equipment.setVisible(false);
+                equipment.setVisible(false);
                 Login loginf = new Login();
-        		loginf.logins();
+                loginf.logins();
 
             }
         });
 
-		equipdashboardbtn.addActionListener(new ActionListener() {
+        equipdashboardbtn.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-            	equipment.setVisible(false);
+                equipment.setVisible(false);
                 mrdashboard dash = new mrdashboard();
-        		dash.dashboard();
+                dash.dashboard();
 
             }
         });
 
-		equipreservationbtn.addActionListener(new ActionListener() {
+        equipreservationbtn.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-            	equipment.setVisible(false);
+                equipment.setVisible(false);
                 mrreservationtbl reserve = new mrreservationtbl();
-        		reserve.reservations();
+                reserve.reservations();
 
             }
         });
         equiproomsbtn.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-            	equipment.setVisible(false);
+                equipment.setVisible(false);
                 mrroom room = new mrroom();
-        		room.rooms();
+                room.rooms();
 
             }
         });
 
         equipequipmentsbtn.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-            	equipment.setVisible(false);
+                equipment.setVisible(false);
                 mrequipmenttbl equipment = new mrequipmenttbl();
-        		equipment.equipments();
+                equipment.equipments();
 
             }
         });
         equipsettingsbtn.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-            	equipment.setVisible(false);
+                equipment.setVisible(false);
                 mrsettings setting = new mrsettings();
-        		setting.settings();
+                setting.settings();
 
             }
         });
 
         addequipment.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-            	equipment.setVisible(false);
+                equipment.setVisible(false);
                 mraddequipment addequip = new mraddequipment();
-        		addequip.addequipments();
+                addequip.addequipments();
 
             }
         });
-       editequipment.addActionListener(new ActionListener() {
+        editequipment.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
 
-			        selectedRow = equipmenttbl.getSelectedRow();
+                selectedRow = equipmenttbl.getSelectedRow();
 
-			        if (selectedRow != -1) {
-			            String getidmodel = equipmentmodel.getValueAt(selectedRow, 0).toString();
-			            getid = Integer.parseInt(getidmodel);
-			            equipment.setVisible(false);
-			            mreditequipment editequip = new mreditequipment();
-			            editequip.editequipments(getid);
-			        } else {
-			            JOptionPane.showMessageDialog(null, "Please select a row to edit.", "No Selection", JOptionPane.WARNING_MESSAGE);
-			            equipment.setVisible(true);
-			        }
-			    }
+                if (selectedRow != -1) {
+                    String getidmodel = equipmentmodel.getValueAt(selectedRow, 0).toString();
+                    getid = Integer.parseInt(getidmodel);
+                    equipment.setVisible(false);
+                    mreditequipment editequip = new mreditequipment();
+                    editequip.editequipments(getid);
+                } else {
+                    JOptionPane.showMessageDialog(null, "Please select a row to edit.", "No Selection",
+                            JOptionPane.WARNING_MESSAGE);
+                    equipment.setVisible(true);
+                }
+            }
 
         });
         archiveequipment.addActionListener(new ActionListener() {
-	    public void actionPerformed(ActionEvent e) {
-	        selectedRow = equipmenttbl.getSelectedRow();
-
-	        if (selectedRow != -1) {
-	            String equipmentName = equipmentmodel.getValueAt(selectedRow, 1).toString();
-
-	            // List of equipment names that cannot be archived
-	            String[] restrictedEquipment = {"drums", "flute", "piano", "acoustic guitar", "electric guitar", "amplifier", "mic", "music stand", "headphone", "mic stand"};
-
-	            if (Arrays.asList(restrictedEquipment).contains(equipmentName)) {
-	                JOptionPane.showMessageDialog(null, "Equipment '" + equipmentName + "' cannot be archived.", "Invalid Action", JOptionPane.WARNING_MESSAGE);
-	            } else {
-	                String getidmodel = equipmentmodel.getValueAt(selectedRow, 0).toString();
-	                getid = Integer.parseInt(getidmodel);
-	                equipment.setVisible(false);
-	                mreditequipment editequip = new mreditequipment();
-	                editequip.archiveequipment(getid);
-	            }
-	        } else {
-	            JOptionPane.showMessageDialog(null, "Please select a row to archive.", "No Selection", JOptionPane.WARNING_MESSAGE);
-	            equipment.setVisible(true);
-	        }
-	    }
-	});
-
-       equiplogoutbtn.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-            	equipment.setVisible(false);
-                Login loginf = new Login();
-        		loginf.logins();
+                selectedRow = equipmenttbl.getSelectedRow();
 
+                if (selectedRow != -1) {
+                    String equipmentName = equipmentmodel.getValueAt(selectedRow, 1).toString();
+
+                    // List of equipment names that cannot be archived
+                    String[] restrictedEquipment = { "drums", "flute", "piano", "acoustic guitar", "electric guitar",
+                            "amplifier", "mic", "music stand", "headphone", "mic stand" };
+
+                    if (Arrays.asList(restrictedEquipment).contains(equipmentName)) {
+                        JOptionPane.showMessageDialog(null, "Equipment '" + equipmentName + "' cannot be archived.",
+                                "Invalid Action", JOptionPane.WARNING_MESSAGE);
+                    } else {
+                        String getidmodel = equipmentmodel.getValueAt(selectedRow, 0).toString();
+                        getid = Integer.parseInt(getidmodel);
+                        equipment.setVisible(false);
+                        mreditequipment editequip = new mreditequipment();
+                        editequip.archiveequipment(getid);
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(null, "Please select a row to archive.", "No Selection",
+                            JOptionPane.WARNING_MESSAGE);
+                    equipment.setVisible(true);
+                }
             }
         });
 
+        equiplogoutbtn.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                equipment.setVisible(false);
+                Login loginf = new Login();
+                loginf.logins();
+
+            }
+        });
 
         // border of button
         addequipment.setBorder(new LineBorder(Color.BLACK, 2));
@@ -301,43 +310,45 @@ public class mrequipmenttbl implements designs {
         equipment.setLayout(null);
         equipment.setVisible(true);
 
-
-	   	}
-class ImageRenderer extends DefaultTableCellRenderer {
-    private static final int MAX_IMAGE_WIDTH = 100; // Set the maximum width for the resized image
-    private static final int CELL_HEIGHT = 100;     // Set the desired height for the cell
-
-    @Override
-    public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
-        Component c = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
-
-        // Check if the value is an ImageIcon
-        if (value instanceof ImageIcon) {
-            // Resize the image while maintaining its aspect ratio
-            ImageIcon originalIcon = (ImageIcon) value;
-            Image originalImage = originalIcon.getImage();
-            int originalWidth = originalImage.getWidth(this);
-            int originalHeight = originalImage.getHeight(this);
-
-            int newWidth = MAX_IMAGE_WIDTH;
-            int newHeight = (int) (((double) originalHeight / originalWidth) * newWidth);
-
-            // Create a new ImageIcon with the resized image
-            ImageIcon resizedIcon = new ImageIcon(originalImage.getScaledInstance(newWidth, newHeight, Image.SCALE_SMOOTH));
-
-            // Set the resized ImageIcon as the icon for the label
-            setIcon(resizedIcon);
-            setText(""); // Clear text if any
-
-            // Set the preferred size of the cell
-            setPreferredSize(new Dimension(newWidth, CELL_HEIGHT));
-        }
-
-        // Set alignment and other properties as needed
-        setHorizontalAlignment(JLabel.CENTER);
-
-        return c;
     }
-}
+
+    class ImageRenderer extends DefaultTableCellRenderer {
+        private static final int MAX_IMAGE_WIDTH = 100; // Set the maximum width for the resized image
+        private static final int CELL_HEIGHT = 100; // Set the desired height for the cell
+
+        @Override
+        public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus,
+                int row, int column) {
+            Component c = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+
+            // Check if the value is an ImageIcon
+            if (value instanceof ImageIcon) {
+                // Resize the image while maintaining its aspect ratio
+                ImageIcon originalIcon = (ImageIcon) value;
+                Image originalImage = originalIcon.getImage();
+                int originalWidth = originalImage.getWidth(this);
+                int originalHeight = originalImage.getHeight(this);
+
+                int newWidth = MAX_IMAGE_WIDTH;
+                int newHeight = (int) (((double) originalHeight / originalWidth) * newWidth);
+
+                // Create a new ImageIcon with the resized image
+                ImageIcon resizedIcon = new ImageIcon(
+                        originalImage.getScaledInstance(newWidth, newHeight, Image.SCALE_SMOOTH));
+
+                // Set the resized ImageIcon as the icon for the label
+                setIcon(resizedIcon);
+                setText(""); // Clear text if any
+
+                // Set the preferred size of the cell
+                setPreferredSize(new Dimension(newWidth, CELL_HEIGHT));
+            }
+
+            // Set alignment and other properties as needed
+            setHorizontalAlignment(JLabel.CENTER);
+
+            return c;
+        }
+    }
 
 }
