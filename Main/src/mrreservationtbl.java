@@ -303,14 +303,17 @@ public class mrreservationtbl implements designs {
 			// Updated SQL query to filter by specific status values and order by date,
 			// starttime
 			String sqlQuery = "SELECT id, fullname, contactnumber, datereserve, typeofroom, status " +
-					"FROM reservation " +
-					"WHERE status IN ('ON-GOING', 'PENDING', 'DONE') " +
-					"ORDER BY " +
-					"  CASE WHEN status = 'ON-GOING' THEN 1 " +
-					"       WHEN status = 'PENDING' THEN 2 " +
-					"       WHEN status = 'DONE' THEN 3 " +
-					"  END, " +
-					"  datereserve ASC, starttime ASC";
+			                  "FROM reservation " +
+			                  "WHERE status IN ('ON-GOING', 'PENDING', 'DONE') " +
+			                  "ORDER BY " +
+			                  "  CASE WHEN status = 'ON-GOING' THEN 1 " +
+			                  "       WHEN status = 'PENDING' THEN 2 " +
+			                  "       WHEN status = 'DONE' THEN 3 " +
+			                  "  END, " +
+			                  "  id ASC, " +  // Added sorting by id
+			                  "  datereserve ASC, starttime ASC";
+
+
 
 			ResultSet rSet = statement.executeQuery(sqlQuery);
 

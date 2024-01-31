@@ -21,16 +21,22 @@
 	</projects>
 	<open_files>
 		<docitem>
-			<path>src\mrforapproved.java</path>
+			<path>src\Login.java</path>
 			<source>true</source>
 			<index>0</index>
-			<active>true</active>
+			<active>false</active>
 		</docitem>
 		<docitem>
-			<path>src\csdashboard.java</path>
+			<path>src\mrequipmenttbl.java</path>
 			<source>true</source>
 			<index>1</index>
 			<active>false</active>
+		</docitem>
+		<docitem>
+			<path>src\mrreservationtbl.java</path>
+			<source>true</source>
+			<index>2</index>
+			<active>true</active>
 		</docitem>
 	</open_files>
 </workspace_user>

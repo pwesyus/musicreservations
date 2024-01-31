@@ -54,7 +54,7 @@ public class mrequipmenttbl implements designs {
 
         // table
         String equipmentrow[][] = {};
-        String equipmentcol[] = { "ID", "EQUIPMENT NAME", "QUANTITY", "RATE", "NO. OF AVAILABLE", "NO. OF BORROW",
+        String equipmentcol[] = { "ID", "EQUIPMENT NAME", "QUANTITY", "RATE", "AVAILABLE", "BORROW",
                 "IMAGE" };
         equipmentmodel = new DefaultTableModel(equipmentrow, equipmentcol);
         JTable equipmenttbl = new JTable(equipmentmodel);
@@ -62,7 +62,7 @@ public class mrequipmenttbl implements designs {
         equipmenttbl.setEnabled(true);
 
         // Set preferred column widths for each column
-        int[] columnWidths = { 60, 370, 190, 130, 350, 305, 220 }; // Adjust the widths as needed
+        int[] columnWidths = { 60, 400, 210, 160, 280, 240, 220 }; // Adjust the widths as needed
 
         for (int i = 0; i < equipmentmodel.getColumnCount(); i++) {
             TableColumn column = equipmenttbl.getColumnModel().getColumn(i);
