@@ -162,9 +162,12 @@ public class csdashboard implements designs {
             String currentTime = currentDateTime.format(timeFormatter);
 
             // Query to retrieve reservations matching the conditions
-            String sqlQuery = "SELECT id, datereserve, starttime, endtime, typeofroom FROM reservation " +
-                    "WHERE datereserve = '" + currentDate + "' " +
-                    "AND starttime <= '" + currentTime + "' AND endtime >= '" + currentTime + "'";
+            String sqlQuery = "SELECT id, datereserve, starttime, endtime, typeofroom " +
+                  "FROM reservation " +
+                  "WHERE datereserve = '" + currentDate + "' " +
+                  "AND starttime <= '" + currentTime + "' " +
+                  "AND endtime >= '" + currentTime + "' " +
+                  "AND status = 'on-going'";
             ResultSet resultSet = statement.executeQuery(sqlQuery);
 
             while (resultSet.next()) {
